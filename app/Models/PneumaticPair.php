@@ -12,4 +12,11 @@ class PneumaticPair extends Model{
         'pair_status'
     ];
 
+    public function get_filtered_data($filter_name,$perpage,$paginate)
+    {
+        $data = $this->db->get('pneumatic_pair',$perpage,$paginate)->result_array();
+       // $builder->like('left_rfid', $filter_name);
+        return $data;
+    }
+
 }
