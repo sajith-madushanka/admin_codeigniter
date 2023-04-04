@@ -9,18 +9,10 @@ use App\Models\PneumaticPairData;
 class DashboardController extends Controller
 {
     use ResponseTrait;
-    // function __construct() { 
-    //     parent::__construct(); 
-         
-    //     // Load pagination library 
-    //     $this->load->library('ajax_pagination'); 
-         
-    //     // Load post model 
-    //     $this->load->model('post'); 
-         
-    //     // Per page limit 
-    //     $this->perPage = 4; 
-    // } 
+    protected $db;
+    function __construct() { 
+        $this->db = \Config\Database::connect();
+    } 
     public function index()
     {
         if ($this->request->is('get')) {
@@ -40,49 +32,96 @@ class DashboardController extends Controller
 
     public function getData()
     {
+        helper('pager');
+        helper('string');
+        helper('inflector');
         // return $this->respond('<tr><th>1</th></tr>');
         // Get filter value
         try{
-        $filter_name = $this->request->getPost('filter_name');
+            $filter_name = '';
+        //$filter_name = $this->request->getPost('filter_name');
         
         // Get current page
-        $page = $this->request->getPost('page') ?? 0;
+        $page = $this->request->getPost('page') ?? 1;
         
          $pneumatic_pair = new PneumaticPair();
          $rows =  $pneumatic_pair->countAll();
         // return $this->respond($pneumatic_pair->countAll());
         // Set pagination configuration
-        // $config = [
-        //     'baseURL' => base_url() . 'get_data',
-        //     'totalRows' => $pneumatic_pair->countAll(),
-        //     'perPage' => 10,
-        //     'uriSegment' => 3,
-        //     'current' => $page
-        // ];
-        //$pager->initialize($config);
+        $config = [
+            'baseURL' => base_url() . 'get_data',
+            'totalRows' => $pneumatic_pair->countAll(),
+            'perPage' => 10,
+            'uriSegment' => 3,
+            'current' => $page
+        ];
+       // $pager->initialize($config);
         
         // Get filtered and paginated data
         //$data = $this->pneumatic_pair->get_filtered_data($filter_name, $config['perPage'], ($page - 1) * $config['perPage']);
-        $data = $pneumatic_pair->paginate(5,'',$page);
+        //$data = $pneumatic_pair->paginate(5,'',$page);
+        $pager = \Config\Services::pager(null,null,true);
+        $limit = 7; // Items per page
+        $offset = ($page - 1) * $limit;
+        $links = $pager->makeLinks($page,$limit,$rows);
+        
+        // if (!empty($search)) {
+        //     $pneumatic_pair->like('id', $filter_name);
+        // }
+        // $db = \Config\Database::connect();
+        // $data =  $this->db->select('*')
+        // ->from('pneumatic_pair')
+        // ->join('pneumatic_pair', 'pneumatic_pair.id = pneumatic_pair_data.pair_id', 'left')
+        // ->get()->getResult();
+        $builder = $pneumatic_pair->builder();
+        $db = db_connect();
+        $sql = 'SELECT * FROM pneumatic_pair order by id desc';
+        //$data = $pneumatic_pair->pair_records()->get()->getResult();
+
+        // $db = \Config\Database::connect();
+        // $builder = $db->table('pneumatic_pair');
+        // $builder->join('pneumatic_pair_data','pneumatic_pair_data.pair_id = pneumatic_pair.id');
+        // $data = $builder->get()->getResult();
+
+        $query = $this->db->query('SELECT * FROM pneumatic_pair INNER JOIN pneumatic_pair_data ON pneumatic_pair.id = pneumatic_pair_data.pair_id ');
+        // $this->db->from('pneumatic_pair');
+        // $this->db->join('pneumatic_pair_data', 'pneumatic_pair_data.pair_id = pneumatic_pair.id');
+        //$this->db->where('city', array('city.city_name' => 'Bangalore'));
+       // $this->db->where('city.city_name', 'Bangalore');
+        $data = $query->getResult();
+       // $data = $pneumatic_pair->innerJoin('pneumatic_pair_data', 'pneumatic_pair_data.pair_id = pneumatic_pair.id')->limit($limit, $offset)->get()->getResult();
+       // $data = $pneumatic_pair->getFilteredData($filter_name,$limit,$offset);
         // return $data;
        // return $data;
         // Generate table data
+        return $this->respond($data);
         $table_data = '';
-        foreach ($data as $row) {
+        foreach ($data as  $row) {
             $table_data .= '<tr>';
-            $table_data .= '<th>' . $row['id'] . '</th>';
-            $table_data .= '<td>' . $row['right_rfid'] . '</td>';
-            $table_data .= '<td>' . $row['left_rfid'] . '</td>';
+            $table_data .= '<th>' . $row->id . '</th>';
+            $table_data .= '<td>' . $row->left_rfid . '</td>';
+            $table_data .= '<td>' . $row->right_rfid . '</td>';
+            if($row->pair_status == 1){
+                $table_data .= '<td><button class="btn btn-info btn-outline-info "><i class="icofont icofont-info-square"></i>Accepted</button></td>';
+            }
+            else if($row->pair_status == 2){
+                $table_data .= '<td><button class="btn btn-warning btn-outline-warning"><i class="icofont icofont-warning-alt"></i>Rejected</button></td>';
+            }
+            else if($row->pair_status == 3){
+                $table_data .= '<td><button class="btn btn-success btn-outline-success"><i class="icofont icofont-check-circled"></i>Finished</button></td>';
+            }
             $table_data .= '</tr>';
         }
-
         // Generate pagination links
-       // $pagination = $this->pager->links();
-
+        //$pagination = $this->pager->links();
+    //    $pager->setPath('PneumaticPair/getFilteredData');
+    //    $pager->setSegment(3);
+    //    $pager->setPerPage($limit);
+        
         // Return JSON response
         return $this->response->setJSON([
             'table_data' => $table_data,
-            'links'=>$pneumatic_pair->pager->links()
+            'links'=>$links
         ]);
     } catch (\Throwable $e) {
         return $this->respond($e->getMessage());

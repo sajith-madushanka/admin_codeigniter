@@ -19,7 +19,7 @@
         <!-- Style.css -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-       
+        
     </head>
 	<body>
         <div class="theme-loader">
@@ -48,7 +48,7 @@
                                 <a class="mobile-menu" id="mobile-collapse" href="#!">
                                     <i class="ti-menu"></i>
                                 </a>
-                                <a href="/">
+                                <a href="<?php echo $this->base_url; ?>/">
                                     <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
                                 </a>
                                 <a class="mobile-options">
@@ -164,7 +164,7 @@ function load_data(page) {
         
         success: function(response) {
             // Update table data
-            console.log('got_data');
+            console.log(response);
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
         }

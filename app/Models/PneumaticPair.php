@@ -12,11 +12,22 @@ class PneumaticPair extends Model{
         'pair_status'
     ];
 
-    public function get_filtered_data($filter_name,$perpage,$paginate)
+    public function getFilteredData($search = '', $limit, $offset)
     {
-        $data = $this->db->get('pneumatic_pair',$perpage,$paginate)->result_array();
-       // $builder->like('left_rfid', $filter_name);
-        return $data;
+        $builder = $this->table('pneumatic_pair');
+
+        if (!empty($search)) {
+            $builder->like('id', $search);
+        }
+
+        return $builder->limit($limit, $offset)->get()->getResult();
+    }
+
+    public function pair_records()
+    {
+       // return $this->hasMany('address', 'App\Models\Address');
+        return $this->hasMany('App\Models\PneumaticPairData','pair_id');
+        // $this->hasOne('propertyName', 'model', 'foreign_key', 'local_key');
     }
 
 }
