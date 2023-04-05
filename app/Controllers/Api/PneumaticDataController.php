@@ -61,6 +61,10 @@ class PneumaticDataController extends Controller
 
                     ];
                     $pneumatic_data->save($data);
+                    $data2 = [
+                        'updated_at'		=>  date("Y-m-d H:i:s", $this->request->getVar('UNIX'))
+                    ];
+                    $pneumatic_pair->update($pair_id,$data2);
                     $ok = 1;
                     $message = "Pair Data Inserted Successfully.";
                 }

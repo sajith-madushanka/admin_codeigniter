@@ -22,7 +22,7 @@ class PneumaticPairData extends Model{
     public function pair()
     {
        // return $this->hasMany('address', 'App\Models\Address');
-        return $this->belongsTo('App\Models\PneumaticPair','pair_id');
+        return $this->belongsTo('App\Models\PneumaticPair','pair_id','id');
         // $this->hasOne('propertyName', 'model', 'foreign_key', 'local_key');
     }
 

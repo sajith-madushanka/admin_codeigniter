@@ -34,6 +34,7 @@ $routes->set404Override();
 
 $routes->get('/', 'App\DashboardController::index',['filter' => 'authGuard']);
 $routes->post('/get_data', 'App\DashboardController::getData');
+$routes->post('/pair_data', 'App\DashboardController::pairData');
 
 $routes->get('/signup', 'Auth\SignupController::index');
 $routes->get('/signin', 'Auth\SigninController::index');

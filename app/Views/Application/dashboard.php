@@ -48,27 +48,19 @@
                                         <!-- Bootstrap tab card start -->
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Bootstrap tab</h5>
-                                                <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                                                <h5>Pneumatic Data tab</h5>
+                                                <div class="pcoded-search">
+                                                    <div class="pcoded-search-box ">
+                                                        <input id="search" type="text" placeholder="Search by ID or RFID">
+                                                    </div>
+                                                </div>
+                                                <input id="date" class="form-control" type="text" name="daterange"/>
                                                 <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                             </div>
                                             <div class="card-block table-border-style">
                                                 <div  class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>left RFID</th>
-                                                                <th>right RFID</th>
-                                                                <th>Pair Status</th>
-                                                                <th>Left Status</th>
-                                                                <th>Right Status</th>
-                                                                <th>Last Update</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="D_table">
+                                                    <table id="D_table" class="table table-hover">
                                                             <!-- table from backend -->
-                                                        </tbody>
                                                     </table>
                                                     <div id="pagination" class="pagination_tab d-flex justify-content-center">
                                                             <!-- pagination from backend -->

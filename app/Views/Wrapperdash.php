@@ -19,7 +19,7 @@
         <!-- Style.css -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-        
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     </head>
 	<body>
         <div class="theme-loader">
@@ -117,7 +117,7 @@
 <script src="assets/pages/widget/amchart/amcharts.min.js"></script>
 <script src="assets/pages/widget/amchart/serial.min.js"></script>
 <!-- Todo js -->
-<script type="text/javascript " src="assets/pages/todo/todo.js "></script>
+<!-- <script type="text/javascript " src="assets/pages/todo/todo.js "></script> -->
 <!-- Custom js -->
 <script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
@@ -125,8 +125,11 @@
 <script src="assets/js/pcoded.min.js"></script>
 <script src="assets/js/demo-12.js"></script>
 <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script>
 var $window = $(window);
+var date_changed = false;
 var nav = $('.fixed-button');
     $window.scroll(function(){
         if ($window.scrollTop() >= 200) {
@@ -136,39 +139,90 @@ var nav = $('.fixed-button');
          nav.removeClass('active');
      }
  });
+ $(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    date_changed = true;
+    pair_Data($('#pair').val(),1,start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
 
  $(document).ready(function() {
     // Load initial data
     load_data(1);
 });
 $(document).on('click','.pagination a',function(e) {
-    // Load initial data
-    load_data(e.target.innerText);
-    console.log(e.target.innerText);
-        e.preventDefault();
+    // Load pagination
+    e.preventDefault();
+    if($("#search").is(":visible")){
+        load_data(e.target.innerText,$('#search').val());
+     }
+     else{
+        console.log('here');
+        console.log(date_changed);
+        if(date_changed == true){
+            console.log('here');
+            console.log($('input[name="daterange"]').daterangepicker());
+            $('input[name="daterange"]').daterangepicker();
+            pair_Data($('#pair').val(),e.target.innerText,start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
+        }
+        else{
+            pair_Data($('#pair').val(),e.target.innerText);
+        }
+       
+     } 
+   
 });
-function load_data(page) {
-    // Get filter value
-    //var filter_name = $('#filter_name').val();
-    console.log('loading');
-    var filter_name = 'sajith';
+
+$(document).on('input','#search',function(e) {
+    load_data(1,e.target.value);
+});
+
+function load_data(page,keyword) {
     // Send AJAX request
     $.ajax({
         url: '<?php echo base_url(); ?>get_data',
         type: 'POST',
         data: {
             page: page,
-            filter_name: filter_name
+            keyword: keyword
         },
         dataType: 'json',
         
         success: function(response) {
             // Update table data
+            $('#date').hide();
+            $('#search').show();
+            $('#D_table').html(response.table_data);
+            $('#pagination').html(response.links);
+        }
+    });
+}
+
+function pair_Data(id,page,start,end) {
+    $.ajax({
+        url: '<?php echo base_url(); ?>pair_data',
+        type: 'POST',
+        data: {
+            page: page,
+            id:id,
+            start:start,
+            end:end
+        },
+        dataType: 'json',
+        
+        success: function(response) {
+            // Update table data
+            $('#search').hide();
+            $('#date').show();
             console.log(response);
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
         }
     });
 }
+
 </script>
 </html>
