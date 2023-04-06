@@ -46,17 +46,6 @@
     <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
     <!-- jquery slimscroll js -->
     <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <!-- modernizr js -->
-    <script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
-    <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
-    <script type="text/javascript" src="assets/js/common-pages.js"></script>
-    <!-- am chart -->
-<script src="assets/pages/widget/amchart/amcharts.min.js"></script>
-<script src="assets/pages/widget/amchart/serial.min.js"></script>
-<!-- Todo js -->
-<script type="text/javascript " src="assets/pages/todo/todo.js "></script>
-<!-- Custom js -->
-<script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
 <script type="text/javascript " src="assets/js/SmoothScroll.js"></script>
 <script src="assets/js/pcoded.min.js"></script>
