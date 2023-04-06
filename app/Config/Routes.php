@@ -57,6 +57,7 @@ $routes->match(['get', 'post'], 'SigninController/login', 'Auth\SigninController
 
  //$routes->get('/api', [\App\Controllers\UserController::class, 'index']);
  $routes->post('/api/pneumatic_data', 'Api\PneumaticDataController::pneumaticData');
+ $routes->post('/api/pneumatic_data_final', 'Api\PneumaticDataController::pneumaticData_final');
 
 
 /*

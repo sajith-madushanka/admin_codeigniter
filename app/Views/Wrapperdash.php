@@ -41,10 +41,9 @@
         <div id="pcoded" class="pcoded">
             <div class="pcoded-overlay-box"></div>
                 <div class="pcoded-container navbar-wrapper">
-
                     <nav class="navbar header-navbar pcoded-header">
                         <div class="navbar-wrapper">
-                            <div class="navbar-logo">
+                            <div class="navbar-logo" logo-theme="theme6">
                                 <a class="mobile-menu" id="mobile-collapse" href="#!">
                                     <i class="ti-menu"></i>
                                 </a>
@@ -129,7 +128,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script>
 var $window = $(window);
-var date_changed = false;
+var start_date = '';
+var end_date = '';
 var nav = $('.fixed-button');
     $window.scroll(function(){
         if ($window.scrollTop() >= 200) {
@@ -143,14 +143,13 @@ var nav = $('.fixed-button');
   $('input[name="daterange"]').daterangepicker({
     opens: 'left'
   }, function(start, end, label) {
-    date_changed = true;
+    start_date = start.format('YYYY-MM-DD');
+    end_date = end.format('YYYY-MM-DD');
     pair_Data($('#pair').val(),1,start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
   });
 });
 
  $(document).ready(function() {
-    // Load initial data
     load_data(1);
 });
 $(document).on('click','.pagination a',function(e) {
@@ -160,13 +159,8 @@ $(document).on('click','.pagination a',function(e) {
         load_data(e.target.innerText,$('#search').val());
      }
      else{
-        console.log('here');
-        console.log(date_changed);
-        if(date_changed == true){
-            console.log('here');
-            console.log($('input[name="daterange"]').daterangepicker());
-            $('input[name="daterange"]').daterangepicker();
-            pair_Data($('#pair').val(),e.target.innerText,start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
+        if(start_date && end_date){
+            pair_Data($('#pair').val(),e.target.innerText,start_date,end_date);
         }
         else{
             pair_Data($('#pair').val(),e.target.innerText);
@@ -178,6 +172,15 @@ $(document).on('click','.pagination a',function(e) {
 
 $(document).on('input','#search',function(e) {
     load_data(1,e.target.value);
+});
+
+$(document).on('click','.icofont-refresh',function() {
+     if($("#search").is(":visible")){
+        load_data(1);
+     }
+     else{
+        pair_Data($('#pair').val(),1);
+     } 
 });
 
 function load_data(page,keyword) {
@@ -194,6 +197,7 @@ function load_data(page,keyword) {
         success: function(response) {
             // Update table data
             $('#date').hide();
+            $('#back').hide();
             $('#search').show();
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
@@ -217,7 +221,7 @@ function pair_Data(id,page,start,end) {
             // Update table data
             $('#search').hide();
             $('#date').show();
-            console.log(response);
+            $('#back').show();
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
         }

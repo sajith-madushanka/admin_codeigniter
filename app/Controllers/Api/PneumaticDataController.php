@@ -91,4 +91,55 @@ class PneumaticDataController extends Controller
 
         return $this->respond($data);
     }
+
+    public function pneumaticData_final()
+    {  
+       
+        $rules = [
+            'LRFID'          => 'required',
+            'RRFID'         => 'required'
+        ];
+          
+        if($this->validate($rules)){
+            try {
+                
+                $pneumatic_pair = new PneumaticPair();
+                $data = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->where('right_rfid', $this->request->getVar('RRFID'))->first();
+                
+                if($data){
+                    $pneumatic_pair->update($data['id'],['pair_status'		=>  3]);
+                    $ok = 1;
+                    $message = "Pair matched Successfully.";
+                }
+                else{
+                    $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
+                    $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
+                    if($lrfid_entry){
+                        $pneumatic_pair->update($lrfid_entry['id'],['pair_status'		=>  2]);
+                    }
+                    if($rrfid_entry){
+                        $pneumatic_pair->update($rrfid_entry['id'],['pair_status'		=>  2]);
+                    }
+                    $ok = 0;
+                    $message = 'pair didnt match';
+                }
+
+                
+            } catch (\Throwable $e) {
+                $ok = 0;
+                $message = $e->getMessage();
+            }
+        }
+        else{
+            $ok = 0;
+            $message = "Some Parameters missing.";
+        }
+
+        $data = [
+            'ok' => $ok,
+            'message' => $message,
+        ];
+
+        return $this->respond($data);
+    }
 }

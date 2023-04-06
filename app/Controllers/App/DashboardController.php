@@ -13,14 +13,14 @@ class DashboardController extends Controller
         if ($this->request->is('get')) {
             $pneumatic_pair = new PneumaticPair();
                 $data = [
-                    'pairs' => $pneumatic_pair->paginate(6),
-                    'pager' => $pneumatic_pair->pager
+                    'total' => $pneumatic_pair->where('pair_status',1)->orWhere('pair_status',3)->countAllResults(),
+                    'finished' =>$pneumatic_pair->where('pair_status',3)->countAllResults(),
+                    'rejected' =>$pneumatic_pair->where('pair_status',2)->countAllResults(),
+
                 ];
+            
 		
             echo view('Application/dashboard',$data);
-        } elseif ($this->request->is('post')) {
-            $session = session();
-       
         }
         
     }
@@ -30,7 +30,7 @@ class DashboardController extends Controller
         try{
         $filter = $this->request->getPost('keyword') ?? '';
         $page = $this->request->getPost('page') ?? 1;
-        $limit = 5; // Items per page
+        $limit = 6; // Items per page
         $offset = ($page - 1) * $limit;
         
         $pneumatic_pair = new PneumaticPair();
@@ -114,7 +114,7 @@ class DashboardController extends Controller
         $page = $this->request->getPost('page') ?? 1;
         $start = $this->request->getPost('start') ?? '';
         $end = $this->request->getPost('end') ?? '';
-        $limit = 2; // Items per page
+        $limit = 3; // Items per page
         $offset = ($page - 1) * $limit;
         
         //$pneumatic_pair = new PneumaticPair();

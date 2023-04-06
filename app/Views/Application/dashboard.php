@@ -22,14 +22,23 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">First Inspection</div>
+                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Overall</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li>
                             <div class="card widget-card-1">
                                     <div class="card-block-small">
                                         <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
-                                        <span class="text-c-blue f-w-100">Total Tested</span>
-                                        <h4>49/50GB</h4>
+                                        <span class="text-c-blue f-w-100">Total Finished</span>
+                                        <h4><?php echo $finished;?>/<?php echo $total;?></h4>
+                                    </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="card widget-card-1">
+                                    <div class="card-block-small">
+                                        <i class="icofont icofont-warning-alt bg-c-pink card1-icon"></i>
+                                        <span class="text-c-pink f-w-100">Total Rejected</span>
+                                        <h4><?php echo $rejected;?>/<?php echo $total;?></h4>
                                     </div>
                             </div>
                         </li>
@@ -48,7 +57,9 @@
                                         <!-- Bootstrap tab card start -->
                                         <div class="card">
                                             <div class="card-header">
+                                            <a  id="back" href="<?php echo $this->base_url; ?>/"><i  class="ti-arrow-left" style="padding-right: 1%;"></i></a>
                                                 <h5>Pneumatic Data tab</h5>
+                                                
                                                 <div class="pcoded-search">
                                                     <div class="pcoded-search-box ">
                                                         <input id="search" type="text" placeholder="Search by ID or RFID">
