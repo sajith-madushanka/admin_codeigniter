@@ -58,6 +58,11 @@ $routes->match(['get', 'post'], 'SigninController/login', 'Auth\SigninController
  //$routes->get('/api', [\App\Controllers\UserController::class, 'index']);
  $routes->post('/api/pneumatic_data', 'Api\PneumaticDataController::pneumaticData');
  $routes->post('/api/pneumatic_data_final', 'Api\PneumaticDataController::pneumaticData_final');
+ $routes->post('/api/heart_beat', 'Api\PneumaticDataController::heartBeat');
+
+ $routes->get('/api/download', 'Api\PneumaticDataController::showFile');
+
+ $routes->post('/api/device_add', 'Api\PneumaticDataController::deviceAdd');
 
 
 /*

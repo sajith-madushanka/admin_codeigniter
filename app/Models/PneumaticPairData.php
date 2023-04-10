@@ -19,11 +19,4 @@ class PneumaticPairData extends Model{
         'date_time'
     ];
 
-    public function pair()
-    {
-       // return $this->hasMany('address', 'App\Models\Address');
-        return $this->belongsTo('App\Models\PneumaticPair','pair_id','id');
-        // $this->hasOne('propertyName', 'model', 'foreign_key', 'local_key');
-    }
-
 }
