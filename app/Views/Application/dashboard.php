@@ -8,14 +8,14 @@
                     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Menu</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="active">
-                            <a href="<?php echo $this->base_url; ?>/">
+                            <a href="/">
                                 <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                 <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="<?php echo $this->base_url; ?>/">
+                            <a href="/">
                                 <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Devices</span>
                                 <span class="pcoded-mcaret"></span>
@@ -57,7 +57,7 @@
                                         <!-- Bootstrap tab card start -->
                                         <div class="card">
                                             <div class="card-header">
-                                            <a  id="back" href="<?php echo $this->base_url; ?>/"><i  class="ti-arrow-left" style="padding-right: 1%;"></i></a>
+                                            <a  id="back" href="/"><i  class="ti-arrow-left" style="padding-right: 1%;"></i></a>
                                                 <h5>Pneumatic Data tab</h5>
                                                 
                                                 <div class="pcoded-search">

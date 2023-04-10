@@ -47,7 +47,7 @@
                                 <a class="mobile-menu" id="mobile-collapse" href="#!">
                                     <i class="ti-menu"></i>
                                 </a>
-                                <a href="<?php echo $this->base_url; ?>/">
+                                <a href="/">
                                     <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
                                 </a>
                                 <a class="mobile-options">
