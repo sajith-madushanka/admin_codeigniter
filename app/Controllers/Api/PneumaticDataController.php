@@ -216,6 +216,76 @@ class PneumaticDataController extends Controller
             $message = "Invalid token.";
         }
         else{
+            if($device['status'] == 1){
+                $bit = 1; 
+                $deviceModel->update($device['id'],['status'		=>  0]);
+            }
+            $ok = 1;
+            $message = "unix time";
+        }
+        $data = [
+            'ok' => $ok,
+            'status_bit' => $bit,
+            'unix' => $unix,
+            'message' => $message,
+        ];
+
+        return $this->respond($data);
+    }
+
+    public function uploadFile()
+    {  
+        $deviceModel = new Device();
+        $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
+        
+        if (!$device) {
+            $ok = 0;
+            $message = "Invalid token.";
+        }
+        else{
+            
+            if($this->request->getFiles()){
+                try {
+                   
+                    $file = $this->request->getFile('data');
+                    unlink(WRITEPATH . 'uploads/' . $file->getName());
+                    $file->move(WRITEPATH . 'uploads');
+                    $deviceModel->update($device['id'],['status'		=>  1,'file' => 'uploads/' . $file->getName() ]);
+                    $ok = 1;
+                    $message = "uploaded the file";
+                } catch (\Throwable $e) {
+                    $ok = 0;
+                    $message = $e->getMessage();
+                }
+            }
+            else{
+                $ok = 0;
+                $message = "no data file";
+            }
+        }
+       
+
+        $data = [
+            'ok' => $ok,
+            'message' => $message,
+        ];
+
+        return $this->respond($data);
+    }
+
+    public function heartBeatOld()
+    {  
+        helper('date');
+        $unix = now("Asia/Colombo");
+        $bit = 0;
+        $deviceModel = new Device();
+        $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
+        
+        if (!$device) {
+            $ok = 0;
+            $message = "Invalid token.";
+        }
+        else{
             
             if($this->request->getFiles()){
                 try {
