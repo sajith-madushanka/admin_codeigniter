@@ -20,8 +20,7 @@ class Device extends Migration
             ],
             'file' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
-                'unique' => TRUE,
+                'constraint' => '100'
             ],
             'status' => [
                 'type' => 'BOOLEAN',
