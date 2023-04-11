@@ -53,7 +53,7 @@ class DashboardController extends Controller
             $t1= $t1p + $t1f;
             $t2= $t2p + $t2f;
             
-            $summary_count =  '<div class="col-md-6 col-xl-3">
+            $summary_count =  '<div class="col-md-6">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
                                             <i class="icofont icofont-pie-chart bg-c-green card1-icon"></i>
@@ -67,7 +67,7 @@ class DashboardController extends Controller
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-xl-3">
+                                <div class="col-md-6">
                                     <div class="card widget-card-1">
                                         <div class="card-block-small">
                                             <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
