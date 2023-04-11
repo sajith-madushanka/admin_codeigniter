@@ -50,6 +50,7 @@
                                 <a href="/">
                                     <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
                                 </a>
+                                
                                 <a class="mobile-options">
                                     <i class="ti-more"></i>
                                 </a>
@@ -138,7 +139,8 @@ var nav = $('.fixed-button');
   }, function(start, end, label) {
     start_date = start.format('YYYY-MM-DD');
     end_date = end.format('YYYY-MM-DD');
-    pair_Data($('#pair').val(),1,start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
+    $('#search').val('');
+    load_data(1,$('#search').val(),start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
   });
 });
 
@@ -148,22 +150,14 @@ var nav = $('.fixed-button');
 $(document).on('click','.pagination a',function(e) {
     // Load pagination
     e.preventDefault();
-    if($("#search").is(":visible")){
-        load_data(e.target.innerText,$('#search').val());
-     }
-     else{
-        if(start_date && end_date){
-            pair_Data($('#pair').val(),e.target.innerText,start_date,end_date);
-        }
-        else{
-            pair_Data($('#pair').val(),e.target.innerText);
-        }
-       
-     } 
+    load_data(e.target.innerText,$('#search').val(),start_date,end_date);
+     
    
 });
 
 $(document).on('input','#search',function(e) {
+    start_date = '';
+    end_date = '';
     load_data(1,e.target.value);
 });
 
@@ -176,47 +170,49 @@ $(document).on('click','.icofont-refresh',function() {
      } 
 });
 
-function load_data(page,keyword) {
+function load_data(page,keyword,start,end) {
     // Send AJAX request
     $.ajax({
         url: '<?php echo base_url(); ?>get_data',
         type: 'POST',
         data: {
             page: page,
-            keyword: keyword
-        },
-        dataType: 'json',
-        
-        success: function(response) {
-            // Update table data
-            $('#date').hide();
-            $('#back').hide();
-            $('#search').show();
-            $('#D_table').html(response.table_data);
-            $('#pagination').html(response.links);
-        }
-    });
-}
-
-function pair_Data(id,page,start,end) {
-    $.ajax({
-        url: '<?php echo base_url(); ?>pair_data',
-        type: 'POST',
-        data: {
-            page: page,
-            id:id,
+            keyword: keyword,
             start:start,
             end:end
         },
         dataType: 'json',
         
         success: function(response) {
+            // console.log(response);
             // Update table data
-            $('#search').hide();
-            $('#date').show();
-            $('#back').show();
+            $('#back').hide();
+            $('#search').show();
+            $('#date_data').show();
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
+            $('#date_data').html(response.summary);
+        }
+    });
+}
+
+function pair_Data(id) {
+    $.ajax({
+        url: '<?php echo base_url(); ?>pair_data',
+        type: 'POST',
+        data: {
+            id:id
+        },
+        dataType: 'json',
+        
+        success: function(response) {
+            // Update table data
+            $('#search').hide();
+            $('#date').hide();
+            $('#date_data').hide();
+            $('#back').show();
+            $('#D_table').html(response.table_data);
+            $('#pagination').html('');
         }
     });
 }

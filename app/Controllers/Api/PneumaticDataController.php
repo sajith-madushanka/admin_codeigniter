@@ -39,9 +39,16 @@ class PneumaticDataController extends Controller
                         $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
                         $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
                         if(!$lrfid_entry && !$rrfid_entry){
+                            if($this->request->getVar('LStatus') == 0 || $this->request->getVar('RStatus') == 0){
+                                $status = 2;
+                            }
+                            else{
+                                $status = 1;
+                            }
                             $data = [
                                 'left_rfid'     => $this->request->getVar('LRFID'),
-                                'right_rfid'     => $this->request->getVar('RRFID')
+                                'right_rfid'     => $this->request->getVar('RRFID'),
+                                'pair_status'   => $status
                             ];
                             $pneumatic_pair->save($data);
                             if($pneumatic_pair->getInsertID()){
@@ -70,8 +77,15 @@ class PneumaticDataController extends Controller
     
                         ];
                         $pneumatic_data->save($data);
+                        if($this->request->getVar('LStatus') == 0 || $this->request->getVar('RStatus') == 0){
+                            $status = 2;
+                        }
+                        else{
+                            $status = 1;
+                        }
                         $data2 = [
-                            'updated_at'		=>  date("Y-m-d H:i:s", $this->request->getVar('UNIX'))
+                            'updated_at'		=>  date("Y-m-d H:i:s", $this->request->getVar('UNIX')),
+                            'pair_status'   => $status
                         ];
                         $pneumatic_pair->update($pair_id,$data2);
                         $ok = 1;
@@ -126,7 +140,7 @@ class PneumaticDataController extends Controller
                     $data = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->where('right_rfid', $this->request->getVar('RRFID'))->first();
                     
                     if($data){
-                        $pneumatic_pair->update($data['id'],['pair_status'		=>  3]);
+                        $pneumatic_pair->update($data['id'],['pair_status'		=>  4]);
                         $ok = 1;
                         $message = "Pair matched Successfully.";
                     }
@@ -134,10 +148,10 @@ class PneumaticDataController extends Controller
                         $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
                         $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
                         if($lrfid_entry){
-                            $pneumatic_pair->update($lrfid_entry['id'],['pair_status'		=>  2]);
+                            $pneumatic_pair->update($lrfid_entry['id'],['pair_status'		=>  3]);
                         }
                         if($rrfid_entry){
-                            $pneumatic_pair->update($rrfid_entry['id'],['pair_status'		=>  2]);
+                            $pneumatic_pair->update($rrfid_entry['id'],['pair_status'		=>  3]);
                         }
                         $ok = 0;
                         $message = 'pair didnt match';
@@ -330,12 +344,14 @@ class PneumaticDataController extends Controller
 
         $fullpath = $path . $filename;
         $file = new \CodeIgniter\Files\File($fullpath, true);
+        $image = file_get_contents(WRITEPATH.'uploads/'.$filename);
+        $mim = 'bin';
         $binary = readfile($fullpath);
         return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
+                ->setHeader('Content-Type', $mim)
+                ->setHeader('Content-disposition', 'inline; filename="data.bin"')
                 ->setStatusCode(200)
-                ->setBody($binary);
+                ->setBody($image);
     }
 
 }
