@@ -338,15 +338,30 @@ class PneumaticDataController extends Controller
 
     public function showFile()
     {
-        helper("filesystem");
-        $path = WRITEPATH . 'uploads/';
-        $filename = 'data.bin';
+    //     helper("filesystem");
+    //     helper("download");
+    //     $path = WRITEPATH . 'uploads/';
+    //     $filename = 'data.bin';
 
-        $fullpath = $path . $filename;
-        $file = new \CodeIgniter\Files\File($fullpath, true);
+    //     $fullpath = $path . $filename;
+    //     $file = new \CodeIgniter\Files\File($fullpath, true);
+    //    $image = file_get_contents(WRITEPATH.'uploads/'.$filename);
+    //     $mim = 'bin';
+    //     //return $mim;
+    //     $binary = readfile($fullpath);
+    // /*make sure here $img2 contains full path of image file*/
+    //     $data = file_get_contents(base_url('/uploads/'.$filename));
+    //     return $this->response
+    //             ->setHeader('Content-Type', $mim)
+    //             ->setHeader('Content-disposition', 'inline; filename="data.bin"')
+    //             ->setStatusCode(200)
+    //             ->setBody($image);
+
+    helper("filesystem");
+        // $path = WRITEPATH . 'uploads/';
+        $filename = 'data.bin';
         $image = file_get_contents(WRITEPATH.'uploads/'.$filename);
         $mim = 'bin';
-        $binary = readfile($fullpath);
         return $this->response
                 ->setHeader('Content-Type', $mim)
                 ->setHeader('Content-disposition', 'inline; filename="data.bin"')
