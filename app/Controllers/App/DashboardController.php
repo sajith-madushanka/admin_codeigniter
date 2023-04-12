@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $page = $this->request->getPost('page') ?? 1;
         $start = $this->request->getPost('start') ?? '';
         $end = $this->request->getPost('end') ?? '';
-        $limit = 3; // Items per page
+        $limit = 10; // Items per page
         $offset = ($page - 1) * $limit;
         $summary_count ='';
         
@@ -100,6 +100,7 @@ class DashboardController extends Controller
                             <th>Right RFID</th>
                             <th>Pneumatic Test</th>
                             <th>Final Inspection</th>
+                            <th>Overall Inspection</th>
                             <th>Last Update</th>
                         </tr>
                     </thead>
@@ -115,14 +116,23 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td><span class="text-c-green f-w-600"> Pass </span></td>';
             }
-            if($row->pair_status == 4){
-                $table_data .= '<td><span class="text-c-blue f-w-600"><i class="icofont icofont-check-circled"></i> Matched </span></td>';
+            if($row->final_status == 1){
+                $table_data .= '<td><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Matched </span></td>';
             }
-            else if($row->pair_status == 3){
+            else if($row->final_status == 2){
                 $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Mismatched </span></td>';
             }
             else{
-                $table_data .= '<td><span class="text-c-green f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
+                $table_data .= '<td><span class="text-c-yellow f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
+            }
+            if($row->final_status == 0){
+                $table_data .= '<td><span class="text-c-yellow f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
+            }
+            else if($row->pair_status == 1 && $row->final_status == 1){
+                $table_data .= '<td><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Accepted </span></td>';
+            }
+            else{
+                $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Rejected </span></td>';
             }
             $table_data .= '<td><p class="text-muted ">'.$row->updated_at.'</p></td>';
             $table_data .= '</tr>';
@@ -138,12 +148,88 @@ class DashboardController extends Controller
         }
     }
 
+    public function exportData()
+    {
+        try{
+        $filter = $this->request->getPost('keyword') ?? '';
+        $page = $this->request->getPost('page') ?? 1;
+        $start = $this->request->getPost('start') ?? '';
+        $end = $this->request->getPost('end') ?? '';
+        
+        $pneumatic_pair = new PneumaticPair();
+        if($start && $end){
+            $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end);
+            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
+        }
+        else if (!empty($filter)) {
+            $pneumatic_pair->like('id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
+            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
+        }
+        else{
+            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
+        }
+
+        $filename = 'report'.date('Ymd').'.csv'; 
+        header("Content-Description: File Transfer"); 
+        header("Content-Disposition: attachment; filename=$filename"); 
+        header("Content-Type: application/csv; ");
+
+
+        // file creation 
+        $file = fopen('php://output', 'w');
+
+        $header = array("ID","Left RFID","Right RFID","Pneumatic Test","Final Inspection","Overall Inspection","Last Update"); 
+        fputcsv($file, $header);
+        foreach ($data as $key=>$row){
+            if($row->pair_status == 2){
+                $pneumatic_test = "pass" ;
+            }
+            else{
+                $pneumatic_test = "fail" ;
+            }
+            if($row->final_status == 1){
+                $final_test = "matched" ;            
+            }
+            else if($row->final_status == 2){
+                $final_test = "mismatched" ;            
+            }
+            else{
+                $final_test = "pending" ;            
+            }
+            if($row->final_status == 0){
+                $overall = "pending" ;            }
+            else if($row->pair_status == 1 && $row->final_status == 1){
+                $overall = "accepted" ;               
+            }
+            else{
+                $overall = "rejected" ;              
+            }
+           
+           
+            
+            fputcsv($row->id,$row->left_rfid,$row->right_rfid,$pneumatic_test,$final_test,$overall,$row->updated_at); 
+        }
+        $data2 = file_get_contents('php://output'); 
+        fclose($file); 
+        helper("filesystem");
+        $mim = 'csv';
+        return $this->response
+                ->setHeader('Content-Type', $mim)
+                ->setHeader('Content-disposition', 'inline; filename="report.csv"')
+                ->setStatusCode(200)
+                ->setBody($data2);
+
+        } catch (\Throwable $e) {
+            return $this->respond($e->getMessage());
+        }
+    }
+
     public function pairData()
     {
         try{
         $pneumatic_pair_data = new PneumaticPairData();
         $data =  $pneumatic_pair_data->where('pair_id', $this->request->getPost('id'))->orderBy('date_time','desc')->get()->getResult();
-        $table_data ='<thead>
+        $table_data ='<input type="hidden" id="pair" value="'.$this->request->getPost('id').'" /><thead>
                         <tr>
                             <th>#</th>
                             <th>Sensor</th>

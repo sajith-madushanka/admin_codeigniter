@@ -60,8 +60,8 @@
                                         <!-- Bootstrap tab card start -->
                                         <div class="card">
                                             <div class="card-header">
-                                            <a  id="back" href="/"><i  class="ti-arrow-left" style="padding-right: 1%;"></i></a>
-                                                <h5>Pneumatic Tester dashboard</h5>
+                                            <div  id="back"><i  class="ti-arrow-left" style="padding-right: 1%;"></i><h5>Pneumatic data</h5></div>
+                                                <h5 id="head">Pneumatic Tester dashboard</h5>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="pcoded-search">
@@ -74,7 +74,7 @@
                                                         <input id="date" class="form-control" type="text" name="daterange"/>
                                                     </div>
                                                 </div>
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i><i class="icofont icofont-rounded-down download_csv"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                             </div>
                                             <div class="card-block table-border-style">
                                                 <div  class="table-responsive">

@@ -124,6 +124,7 @@
 var $window = $(window);
 var start_date = '';
 var end_date = '';
+var page = 1;
 var nav = $('.fixed-button');
     $window.scroll(function(){
         if ($window.scrollTop() >= 200) {
@@ -150,6 +151,7 @@ var nav = $('.fixed-button');
 $(document).on('click','.pagination a',function(e) {
     // Load pagination
     e.preventDefault();
+    page = e.target.innerText;
     load_data(e.target.innerText,$('#search').val(),start_date,end_date);
      
    
@@ -158,6 +160,8 @@ $(document).on('click','.pagination a',function(e) {
 $(document).on('input','#search',function(e) {
     start_date = '';
     end_date = '';
+    $('input[name="daterange"]').datepicker( "option", "maxDate", null );
+    $('input[name="daterange"]').datepicker( "option", "minDate", null );
     load_data(1,e.target.value);
 });
 
@@ -166,8 +170,38 @@ $(document).on('click','.icofont-refresh',function() {
         load_data(1);
      }
      else{
-        pair_Data($('#pair').val(),1);
+        pair_Data($('#pair').val());
      } 
+});
+
+
+$(document).on('click','.download_csv',function() {
+        if($("#search").is(":visible")){
+            $.ajax({
+            url: '<?php echo base_url(); ?>export_data',
+            type: 'POST',
+            data: {
+                page: page,
+                keyword:$('#search').val(),
+                start:start_date,
+                end:end_date
+            },
+            dataType: 'json',
+            
+            success: function(response) {
+                console.log(response);
+                // Update table data
+            }
+        });
+     }
+     else{
+       
+     } 
+});
+
+$(document).on('click','#back',function() {
+
+    load_data(page,$('#search').val(),start_date,end_date);
 });
 
 function load_data(page,keyword,start,end) {
@@ -187,8 +221,10 @@ function load_data(page,keyword,start,end) {
             // console.log(response);
             // Update table data
             $('#back').hide();
+            $('#head').show();
             $('#search').show();
             $('#date_data').show();
+            $('#date').show();
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
             $('#date_data').html(response.summary);
@@ -211,6 +247,7 @@ function pair_Data(id) {
             $('#date').hide();
             $('#date_data').hide();
             $('#back').show();
+            $('#head').hide();
             $('#D_table').html(response.table_data);
             $('#pagination').html('');
         }

@@ -140,7 +140,7 @@ class PneumaticDataController extends Controller
                     $data = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->where('right_rfid', $this->request->getVar('RRFID'))->first();
                     
                     if($data){
-                        $pneumatic_pair->update($data['id'],['pair_status'		=>  4]);
+                        $pneumatic_pair->update($data['id'],['final_status'		=>  1]);
                         $ok = 1;
                         $message = "Pair matched Successfully.";
                     }
@@ -148,10 +148,10 @@ class PneumaticDataController extends Controller
                         $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
                         $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
                         if($lrfid_entry){
-                            $pneumatic_pair->update($lrfid_entry['id'],['pair_status'		=>  3]);
+                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2]);
                         }
                         if($rrfid_entry){
-                            $pneumatic_pair->update($rrfid_entry['id'],['pair_status'		=>  3]);
+                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2]);
                         }
                         $ok = 0;
                         $message = 'pair didnt match';
@@ -337,28 +337,8 @@ class PneumaticDataController extends Controller
     }
 
     public function showFile()
-    {
-    //     helper("filesystem");
-    //     helper("download");
-    //     $path = WRITEPATH . 'uploads/';
-    //     $filename = 'data.bin';
-
-    //     $fullpath = $path . $filename;
-    //     $file = new \CodeIgniter\Files\File($fullpath, true);
-    //    $image = file_get_contents(WRITEPATH.'uploads/'.$filename);
-    //     $mim = 'bin';
-    //     //return $mim;
-    //     $binary = readfile($fullpath);
-    // /*make sure here $img2 contains full path of image file*/
-    //     $data = file_get_contents(base_url('/uploads/'.$filename));
-    //     return $this->response
-    //             ->setHeader('Content-Type', $mim)
-    //             ->setHeader('Content-disposition', 'inline; filename="data.bin"')
-    //             ->setStatusCode(200)
-    //             ->setBody($image);
-
-    helper("filesystem");
-        // $path = WRITEPATH . 'uploads/';
+    {   
+        helper("filesystem");
         $filename = 'data.bin';
         $image = file_get_contents(WRITEPATH.'uploads/'.$filename);
         $mim = 'bin';

@@ -28,6 +28,11 @@ class PneumaticPair extends Migration
                 'constraint' => '1',
                 'default' => 1,
             ],
+            'final_status' => [
+                'type' => 'VARCHAR',
+                'constraint' => '1',
+                'default' => 0,
+            ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp'
         ]);

@@ -11,6 +11,7 @@ class PneumaticPair extends Model{
         'left_rfid',
         'right_rfid',
         'pair_status',
+        'final_status',
         'updated_at'
     ];
 
