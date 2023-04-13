@@ -18,7 +18,7 @@ class PneumaticDataController extends Controller
             'UNIX'      => 'required'
         ];
         
-        $deviceModel = model('Device');
+        $deviceModel = new Device();
         $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
         
         if (!$device) {
@@ -48,7 +48,8 @@ class PneumaticDataController extends Controller
                             $data = [
                                 'left_rfid'     => $this->request->getVar('LRFID'),
                                 'right_rfid'     => $this->request->getVar('RRFID'),
-                                'pair_status'   => $status
+                                'pair_status'   => $status,
+                                'device'    => $device['name'],  
                             ];
                             $pneumatic_pair->save($data);
                             if($pneumatic_pair->getInsertID()){
@@ -62,6 +63,98 @@ class PneumaticDataController extends Controller
                     }
                     
                     if($pair_id != null){
+                        $status = 1;
+                        //  return $this->respond($this->request->getVar('LT')[0]);
+                        foreach ($this->request->getVar('LT') as  $key=>$data) {
+                           
+                            if(strpos($key, "HP") !== false){
+                                
+                                if(26.4 > $data ||  $data > 31.6){
+                                    $status = 2; 
+                                }
+                            }
+                            else{
+                                if(7.5 > $data ||  $data > 12.5){
+                                    
+                                    $status = 2;
+                                }
+                            }
+                        }
+
+                        foreach ($this->request->getVar('LM') as  $key=>$data) {
+                           
+                            if(strpos($key, "HP") !== false){
+
+                                if(30.4 > $data ||  $data > 35.6){
+                                    $status = 2; 
+                                }
+                            }
+                            else{
+                                if(7.5 > $data ||  $data > 12.5){
+                                    $status = 2;
+                                }
+                            }
+                        }
+
+                        foreach ($this->request->getVar('LB') as  $key=>$data) {
+                           
+                            if(strpos($key, "HP") !== false){
+
+                                if(32.4 > $data ||  $data > 37.6){
+                                    $status = 2; 
+                                }
+                            }
+                            else{
+                                if(7.5 > $data ||  $data > 12.5){
+                                    $status = 2;
+                                }
+                            }
+                        }
+
+                        foreach ($this->request->getVar('RT') as  $key=>$data) {
+                           
+                            if(strpos($key, "HP") !== false){
+                                
+                                if(26.4 > $data ||  $data > 31.6){
+                                    $status = 2; 
+                                }
+                            }
+                            else{
+                                if(7.5 > $data ||  $data > 12.5){
+                                    $status = 2;
+                                }
+                            }
+                        }
+
+                        foreach ($this->request->getVar('RM') as  $key=>$data) {
+                           
+                            if(strpos($key, "HP") !== false){
+
+                                if(30.4 > $data ||  $data > 35.6){
+                                    $status = 2; 
+                                }
+                            }
+                            else{
+                                if(7.5 > $data ||  $data > 12.5){
+                                    $status = 2;
+                                }
+                            }
+                        }
+
+                        foreach ($this->request->getVar('RB') as  $key=>$data) {
+                           
+                            if(strpos($key, "HP") !== false){
+
+                                if(32.4 > $data ||  $data > 37.6){
+                                    $status = 2; 
+                                }
+                            }
+                            else{
+                                if(7.5 > $data ||  $data > 12.5){
+                                    $status = 2;
+                                }
+                            }
+                        }
                         $pneumatic_data = new PneumaticPairData();
                         $data = [
                             'pair_id'     => $pair_id,
@@ -77,15 +170,18 @@ class PneumaticDataController extends Controller
     
                         ];
                         $pneumatic_data->save($data);
-                        if($this->request->getVar('LStatus') == 0 || $this->request->getVar('RStatus') == 0){
-                            $status = 2;
-                        }
-                        else{
-                            $status = 1;
-                        }
+                        
+                        // if($this->request->getVar('LStatus') == 0 || $this->request->getVar('RStatus') == 0){
+                        //     $status = 2;
+                        // }
+                        // else{
+                        //     $status = 1;
+                        // }
+
                         $data2 = [
                             'updated_at'		=>  date("Y-m-d H:i:s", $this->request->getVar('UNIX')),
-                            'pair_status'   => $status
+                            'pair_status'   => $status,
+                            'device'    => $device['name']
                         ];
                         $pneumatic_pair->update($pair_id,$data2);
                         $ok = 1;
@@ -125,7 +221,7 @@ class PneumaticDataController extends Controller
             'RRFID'         => 'required'
         ];
          
-        $deviceModel = model('Device');
+        $deviceModel = new Device();
         $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
         
         if (!$device) {
@@ -140,7 +236,7 @@ class PneumaticDataController extends Controller
                     $data = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->where('right_rfid', $this->request->getVar('RRFID'))->first();
                     
                     if($data){
-                        $pneumatic_pair->update($data['id'],['final_status'		=>  1]);
+                        $pneumatic_pair->update($data['id'],['final_status'		=>  1,'device'    => $device['name']]);
                         $ok = 1;
                         $message = "Pair matched Successfully.";
                     }
@@ -148,10 +244,10 @@ class PneumaticDataController extends Controller
                         $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
                         $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
                         if($lrfid_entry){
-                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2]);
+                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2,'device'    => $device['name']]);
                         }
                         if($rrfid_entry){
-                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2]);
+                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2,'device'    => $device['name']]);
                         }
                         $ok = 0;
                         $message = 'pair didnt match';
