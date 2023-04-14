@@ -101,7 +101,7 @@ class DashboardController extends Controller
                             <th>Pneumatic Test</th>
                             <th>Final Inspection</th>
                             <th>Overall Inspection</th>
-                            <th>Last Checked Device</th>
+                            <th>Pneumatic Tested Device</th>
                             <th>Last Update</th>
                         </tr>
                     </thead>
