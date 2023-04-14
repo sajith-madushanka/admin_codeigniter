@@ -242,6 +242,7 @@ function load_data(page,keyword,start,end) {
             $('#search').show();
             $('#date_data').show();
             $('#date').show();
+            $('.download_csv').show();
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
             $('#date_data').html(response.summary);
@@ -261,6 +262,7 @@ function pair_Data(id) {
         success: function(response) {
             // Update table data
             $('#search').hide();
+            $('.download_csv').hide();
             $('#date').hide();
             $('#date_data').hide();
             $('#back').show();
