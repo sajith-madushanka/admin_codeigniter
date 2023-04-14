@@ -187,28 +187,27 @@ $(document).on('click','.download_csv',function() {
                     end:end_date
                 },
                 dataType: 'json',
-                success: function(response) {
-                    console.log(response);
-                    // Update table data
-                }
                 
-                // success: function (data) {
-                //     // Create a Blob with the CSV data
-                //     var blob = new Blob([data], {type: 'text/csv'});
+                
+                success: function (data) {
+                    if(data){
+                        // Create a Blob with the CSV data
+                        var blob = new Blob([data], {type: 'text/csv'});
 
-                //     // Create a temporary link element
-                //     var link = document.createElement('a');
-                //     link.href = URL.createObjectURL(blob);
-                //     link.download = 'example.csv'; // Set the download file name
-                //     link.click();
+                        // Create a temporary link element
+                        var link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = 'pneumatic_data.csv'; // Set the download file name
+                        link.click();
 
-                //     // Clean up
-                //     URL.revokeObjectURL(link.href);
-                //     link.remove();
-                // },
-                // error: function (xhr, status, error) {
-                //     console.error(error);
-                // }
+                        // Clean up
+                        URL.revokeObjectURL(link.href);
+                        link.remove();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
                
             });
         }

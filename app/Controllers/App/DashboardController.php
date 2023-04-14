@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $page = $this->request->getPost('page') ?? 1;
         $start = $this->request->getPost('start') ?? '';
         $end = $this->request->getPost('end') ?? '';
-        $limit = 10; // Items per page
+        $limit = 12; // Items per page
         $offset = ($page - 1) * $limit;
         $summary_count ='';
         
@@ -152,18 +152,7 @@ class DashboardController extends Controller
 
     public function exportData()
     {
-        $csvData = "Name,Email\nJohn Doe,johndoe@example.com\nJane Smith,janesmith@example.com";
-
-        // Set the response headers for CSV download
-        $filename = 'example.csv';
-        header("Content-type: text/csv");
-        header("Content-Disposition: attachment; filename=$filename");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-    
-        // Output the CSV data
-        echo $csvData;
-        exit;
+        
         try{
         $filter = $this->request->getPost('keyword') ?? '';
         $page = $this->request->getPost('page') ?? 1;
@@ -182,57 +171,51 @@ class DashboardController extends Controller
         else{
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
         }
-
-        $filename = 'report'.date('Ymd').'.csv'; 
-        header("Content-Description: File Transfer"); 
-        header("Content-Disposition: attachment; filename=$filename"); 
-        header("Content-Type: application/csv; ");
-
-
-        // file creation 
-        $file = fopen('php://output', 'w');
-
-        $header = array("ID","Left RFID","Right RFID","Pneumatic Test","Final Inspection"); 
-        fputcsv($file, $header);
-        foreach ($data as $key=>$row){
-            if($row->pair_status == 2){
-                $pneumatic_test = "pass" ;
+        if($data){
+            $csvData = "ID,Left RFID,Right RFID,Pneumatic Test,Final Inspection,Overall Inspection,Tested device,Last Update\n";
+            foreach ($data as $key=>$row){
+                if($row->pair_status == 1){
+                    $pneumatic_test = "pass" ;
+                }
+                else{
+                    $pneumatic_test = "fail" ;
+                }
+                if($row->final_status == 1){
+                    $final_test = "matched" ;            
+                }
+                else if($row->final_status == 2){
+                    $final_test = "mismatched" ;            
+                }
+                else{
+                    $final_test = "pending" ;            
+                }
+                if($row->final_status == 0){
+                    $overall = "pending" ;
+                }
+                else if($row->pair_status == 1 && $row->final_status == 1){
+                    $overall = "accepted" ;               
+                }
+                else{
+                    $overall = "rejected" ;              
+                }
+               
+               
+                $csvData .= "".$row->id.",".$row->left_rfid.",".$row->right_rfid.",".$pneumatic_test.",".$final_test.",".$overall.",".$row->device.",".$row->updated_at."\n";
             }
-            else{
-                $pneumatic_test = "fail" ;
-            }
-            if($row->final_status == 1){
-                $final_test = "matched" ;            
-            }
-            else if($row->final_status == 2){
-                $final_test = "mismatched" ;            
-            }
-            else{
-                $final_test = "pending" ;            
-            }
-            if($row->final_status == 0){
-                $overall = "pending" ;
-            }
-            else if($row->pair_status == 1 && $row->final_status == 1){
-                $overall = "accepted" ;               
-            }
-            else{
-                $overall = "rejected" ;              
-            }
-           
-           
             
-            fputcsv($row->id,$row->left_rfid,$row->right_rfid,$pneumatic_test,$final_test); 
+            $csvData = json_encode($csvData);
+            // Set the response headers for CSV download
+            $filename = 'Pneumatic_test.csv';
+            header("Content-type: text/csv");
+            header("Content-Disposition: attachment; filename=$filename");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+        
+            // Output the CSV data
+            echo $csvData;
+            exit;
         }
-        $data2 = file_get_contents('php://output'); 
-       // fclose($file); 
-        helper("filesystem");
-        $mim = 'csv';
-        return $this->response
-                ->setHeader('Content-Type', $mim)
-                ->setHeader('Content-disposition', 'inline; filename="report.csv"')
-                ->setStatusCode(200)
-                ->setBody($file);
+        
 
         } catch (\Throwable $e) {
             return $this->respond($e->getMessage());
