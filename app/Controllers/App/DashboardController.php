@@ -18,8 +18,8 @@ class DashboardController extends Controller
                     'date' => $date,
                     't1p' => $pneumatic_pair->where('updated_at >=', $date)->where('pair_status',1)->countAllResults(),
                     't1f' => $pneumatic_pair->where('updated_at >=', $date)->where('pair_status',2)->countAllResults(),
-                    't2p' =>$pneumatic_pair->where('updated_at >=', $date)->where('pair_status',4)->countAllResults(),
-                    't2f' =>$pneumatic_pair->where('updated_at >=', $date)->where('pair_status',3)->countAllResults(),
+                    't2p' =>$pneumatic_pair->where('updated_at >=', $date)->where('final_status',1)->countAllResults(),
+                    't2f' =>$pneumatic_pair->where('updated_at >=', $date)->where('final_status',1)->countAllResults(),
                 ];
             
 		
@@ -48,8 +48,8 @@ class DashboardController extends Controller
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
             $t1p = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',1)->countAllResults();
             $t1f = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',2)->countAllResults();
-            $t2p = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',4)->countAllResults();
-            $t2f = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',3)->countAllResults();
+            $t2p = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('final_status',1)->countAllResults();
+            $t2f = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('final_status',2)->countAllResults();
             $t1= $t1p + $t1f;
             $t2= $t2p + $t2f;
             
@@ -152,6 +152,18 @@ class DashboardController extends Controller
 
     public function exportData()
     {
+        $csvData = "Name,Email\nJohn Doe,johndoe@example.com\nJane Smith,janesmith@example.com";
+
+        // Set the response headers for CSV download
+        $filename = 'example.csv';
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+    
+        // Output the CSV data
+        echo $csvData;
+        exit;
         try{
         $filter = $this->request->getPost('keyword') ?? '';
         $page = $this->request->getPost('page') ?? 1;
@@ -180,7 +192,7 @@ class DashboardController extends Controller
         // file creation 
         $file = fopen('php://output', 'w');
 
-        $header = array("ID","Left RFID","Right RFID","Pneumatic Test","Final Inspection","Overall Inspection","Last Update"); 
+        $header = array("ID","Left RFID","Right RFID","Pneumatic Test","Final Inspection"); 
         fputcsv($file, $header);
         foreach ($data as $key=>$row){
             if($row->pair_status == 2){
@@ -199,7 +211,8 @@ class DashboardController extends Controller
                 $final_test = "pending" ;            
             }
             if($row->final_status == 0){
-                $overall = "pending" ;            }
+                $overall = "pending" ;
+            }
             else if($row->pair_status == 1 && $row->final_status == 1){
                 $overall = "accepted" ;               
             }
@@ -209,17 +222,17 @@ class DashboardController extends Controller
            
            
             
-            fputcsv($row->id,$row->left_rfid,$row->right_rfid,$pneumatic_test,$final_test,$overall,$row->updated_at); 
+            fputcsv($row->id,$row->left_rfid,$row->right_rfid,$pneumatic_test,$final_test); 
         }
         $data2 = file_get_contents('php://output'); 
-        fclose($file); 
+       // fclose($file); 
         helper("filesystem");
         $mim = 'csv';
         return $this->response
                 ->setHeader('Content-Type', $mim)
                 ->setHeader('Content-disposition', 'inline; filename="report.csv"')
                 ->setStatusCode(200)
-                ->setBody($data2);
+                ->setBody($file);
 
         } catch (\Throwable $e) {
             return $this->respond($e->getMessage());
