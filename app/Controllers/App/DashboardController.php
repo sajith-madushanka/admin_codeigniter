@@ -19,7 +19,7 @@ class DashboardController extends Controller
                     't1p' => $pneumatic_pair->where('updated_at >=', $date)->where('pair_status',1)->countAllResults(),
                     't1f' => $pneumatic_pair->where('updated_at >=', $date)->where('pair_status',2)->countAllResults(),
                     't2p' =>$pneumatic_pair->where('updated_at >=', $date)->where('final_status',1)->countAllResults(),
-                    't2f' =>$pneumatic_pair->where('updated_at >=', $date)->where('final_status',1)->countAllResults(),
+                    't2f' =>$pneumatic_pair->where('updated_at >=', $date)->where('final_status',2)->countAllResults(),
                 ];
             
 		
