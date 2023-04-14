@@ -236,7 +236,7 @@ class PneumaticDataController extends Controller
                     $data = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->where('right_rfid', $this->request->getVar('RRFID'))->first();
                     
                     if($data){
-                        $pneumatic_pair->update($data['id'],['final_status'		=>  1,'device'    => $device['name'], 'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Colombo"))]);
+                        $pneumatic_pair->update($data['id'],['final_status'		=>  1, 'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Colombo"))]);
                         $ok = 1;
                         $message = "Pair matched Successfully.";
                     }
@@ -244,10 +244,10 @@ class PneumaticDataController extends Controller
                         $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
                         $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
                         if($lrfid_entry){
-                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2,'device'    => $device['name'], 'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Colombo"))]);
+                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2, 'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Colombo"))]);
                         }
                         if($rrfid_entry){
-                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2,'device'    => $device['name'], 'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Colombo"))]);
+                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2, 'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Colombo"))]);
                         }
                         $ok = 0;
                         $message = 'pair didnt match';
