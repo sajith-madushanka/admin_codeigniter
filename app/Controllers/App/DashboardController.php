@@ -136,8 +136,7 @@ class DashboardController extends Controller
                 $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Rejected </span></td>';
             }
             $table_data .= '<td><p class="text-muted ">'.$row->device.'</p></td>';
-            $table_data .= '<td><p class="text-muted ">'.$row->updated_at.'</p></td>';
-            if($row->final_test != ""){
+            if($row->final_test !="" ){
                 $table_data .= '<td><p class="text-muted ">'.$row->final_test.'</p></td>';            
             }
             else{
