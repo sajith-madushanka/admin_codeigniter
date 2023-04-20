@@ -17,7 +17,7 @@ class PneumaticDataController extends Controller
             'RRFID'         => 'required',
             'UNIX'      => 'required'
         ];
-        
+        helper('date');
         $deviceModel = new Device();
         $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
         
@@ -48,6 +48,7 @@ class PneumaticDataController extends Controller
                             $data = [
                                 'left_rfid'     => $this->request->getVar('LRFID'),
                                 'right_rfid'     => $this->request->getVar('RRFID'),
+                                'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),
                                 'pair_status'   => $status,
                                 'device'    => $device['name'],  
                             ];
@@ -317,6 +318,9 @@ class PneumaticDataController extends Controller
     {  
         helper('date');
         $unix = now("Asia/Shanghai");
+        //$unix1 = date("Y-m-d H:i:s", now());
+        // $d = '2023-04-20 14:19:18';
+         //$unix =  strtotime($unix1);
         $bit = 0;
         $deviceModel = new Device();
         $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
