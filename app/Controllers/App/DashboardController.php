@@ -13,7 +13,7 @@ class DashboardController extends Controller
         helper('date');
         if ($this->request->is('get')) {
             $pneumatic_pair = new PneumaticPair();
-            $date = date("Y-m-d", now("Asia/Colombo"));
+            $date = date("Y-m-d", now("Asia/Shanghai"));
                 $data = [
                     'date' => $date,
                     't1p' => $pneumatic_pair->where('updated_at >=', $date)->where('pair_status',1)->countAllResults(),
@@ -42,9 +42,9 @@ class DashboardController extends Controller
         $pneumatic_pair = new PneumaticPair();
         $pager = \Config\Services::pager(null,null,true);
         if($start && $end){
-            $pneumatic_pair->where('updated_at >=', $start)->orwhere('final_test >=', $start)->where('updated_at <=', $end);
+            $pneumatic_pair->where('updated_at BETWEEN "'.$start.'" and "'.$end.'"')->orwhere('final_test BETWEEN "'.$start.'" and "'.$end.'"');
             $rows = $pneumatic_pair->countAllResults();
-            $pneumatic_pair->where('updated_at >=', $start)->orwhere('final_test >=', $start)->where('updated_at <=', $end);
+            $pneumatic_pair->where('updated_at BETWEEN "'.$start.'" and "'.$end.'"')->orwhere('final_test BETWEEN "'.$start.'" and "'.$end.'"');
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
             $t1p = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',1)->countAllResults();
             $t1f = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',2)->countAllResults();
@@ -166,7 +166,7 @@ class DashboardController extends Controller
         
         $pneumatic_pair = new PneumaticPair();
         if($start && $end){
-            $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end);
+            $pneumatic_pair->where('updated_at BETWEEN "'.$start.'" and "'.$end.'"')->orwhere('final_test BETWEEN "'.$start.'" and "'.$end.'"');
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
         }
         else if (!empty($filter)) {
@@ -205,7 +205,7 @@ class DashboardController extends Controller
                 }
                
                
-                $csvData .= "".$row->id.",".$row->left_rfid.",".$row->right_rfid.",".$pneumatic_test.",".$final_test.",".$overall.",".$row->device.",".$row->updated_at."\n";
+                $csvData .= "".$row->id.",".$row->left_rfid.",".$row->right_rfid.",".$pneumatic_test.",".$final_test.",".$overall.",".$row->device.",".$row->final_test == ""?$row->updated_at:$row->final_test."\n";
             }
             
             $csvData = json_encode($csvData);

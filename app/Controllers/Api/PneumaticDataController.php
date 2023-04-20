@@ -236,7 +236,7 @@ class PneumaticDataController extends Controller
                     $data = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->where('right_rfid', $this->request->getVar('RRFID'))->first();
                     
                     if($data){
-                        $pneumatic_pair->update($data['id'],['final_status'		=>  1, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Colombo")),'updated_at'		=>  $data['updated_at']]);
+                        $pneumatic_pair->update($data['id'],['final_status'		=>  1, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),'updated_at'		=>  $data['updated_at']]);
                         $ok = 1;
                         $message = "Pair matched Successfully.";
                     }
@@ -244,10 +244,10 @@ class PneumaticDataController extends Controller
                         $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
                         $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
                         if($lrfid_entry){
-                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Colombo")),'updated_at'		=>  $data['updated_at']]);
+                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),'updated_at'		=>  $data['updated_at']]);
                         }
                         if($rrfid_entry){
-                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Colombo")),'updated_at'		=>  $data['updated_at']]);
+                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),'updated_at'		=>  $data['updated_at']]);
                         }
                         $ok = 0;
                         $message = 'pair didnt match';
@@ -316,7 +316,7 @@ class PneumaticDataController extends Controller
     public function heartBeat()
     {  
         helper('date');
-        $unix = now("Asia/Colombo");
+        $unix = now("Asia/Shanghai");
         $bit = 0;
         $deviceModel = new Device();
         $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
@@ -386,7 +386,7 @@ class PneumaticDataController extends Controller
     public function heartBeatOld()
     {  
         helper('date');
-        $unix = now("Asia/Colombo");
+        $unix = now("Asia/Shanghai");
         $bit = 0;
         $deviceModel = new Device();
         $device = $deviceModel->where('token', $this->request->getVar('api_token'))->first();
