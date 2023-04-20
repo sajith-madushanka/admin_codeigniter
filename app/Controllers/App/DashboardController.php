@@ -42,9 +42,9 @@ class DashboardController extends Controller
         $pneumatic_pair = new PneumaticPair();
         $pager = \Config\Services::pager(null,null,true);
         if($start && $end){
-            $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end);
+            $pneumatic_pair->where('updated_at >=', $start)->orwhere('final_test >=', $start)->where('updated_at <=', $end);
             $rows = $pneumatic_pair->countAllResults();
-            $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end);
+            $pneumatic_pair->where('updated_at >=', $start)->orwhere('final_test >=', $start)->where('updated_at <=', $end);
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
             $t1p = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',1)->countAllResults();
             $t1f = $pneumatic_pair->where('updated_at >=', $start)->where('updated_at <=', $end)->where('pair_status',2)->countAllResults();
