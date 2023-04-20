@@ -170,7 +170,7 @@ class DashboardController extends Controller
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
         }
         if($data){
-            $csvData = "ID,Left RFID,Right RFID,Pneumatic Test,Final Inspection,Overall Inspection,Tested device,Last Update\n";
+            $csvData = "ID,Left RFID,Right RFID,Pneumatic Test,Test Date,Final Inspection,Inspected Date,Overall Inspection,Tested device\n";
             foreach ($data as $key=>$row){
                 if($row->pair_status == 1){
                     $pneumatic_test = "pass" ;
@@ -179,13 +179,16 @@ class DashboardController extends Controller
                     $pneumatic_test = "fail" ;
                 }
                 if($row->final_status == 1){
-                    $final_test = "matched" ;            
+                    $final_test = "matched" ;  
+                    $final_date = $row->final_test ;          
                 }
                 else if($row->final_status == 2){
-                    $final_test = "mismatched" ;            
+                    $final_test = "mismatched" ;
+                    $final_date = $row->final_test ;               
                 }
                 else{
-                    $final_test = "pending" ;            
+                    $final_test = "pending" ;    
+                    $final_date = " " ;           
                 }
                 if($row->final_status == 0){
                     $overall = "pending" ;
@@ -198,7 +201,7 @@ class DashboardController extends Controller
                 }
                
                
-                $csvData .= "".$row->id.",".$row->left_rfid.",".$row->right_rfid.",".$pneumatic_test.",".$final_test.",".$overall.",".$row->device.",".$row->final_test == ""?$row->updated_at:$row->final_test."\n";
+                $csvData .= "".$row->id.",".$row->left_rfid.",".$row->right_rfid.",".$pneumatic_test.",".$row->updated_at.",".$final_test.",".$final_date.",".$overall.",".$row->device."\n";
             }
             
             $csvData = json_encode($csvData);
