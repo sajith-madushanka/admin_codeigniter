@@ -13,7 +13,8 @@ class PneumaticPair extends Model{
         'pair_status',
         'final_status',
         'device',
-        'updated_at'
+        'updated_at',
+        'final_test'
     ];
 
 }
