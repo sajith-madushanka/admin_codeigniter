@@ -98,30 +98,29 @@ class DashboardController extends Controller
                             <th>#</th>
                             <th>Left RFID</th>
                             <th>Right RFID</th>
-                            <th>Pneumatic Test</th>
-                            <th>Final Inspection</th>
-                            <th>Overall Inspection</th>
-                            <th>Pneumatic Tested Device</th>
-                            <th>Last Update</th>
+                            <th>Pneumatic<br>Test</th>
+                            <th>Final<br>Inspection</th>
+                            <th>Overall<br>Inspection</th>
+                            <th>Tester ID</th>
                         </tr>
                     </thead>
                     <tbody>';
         foreach ($data as  $row) {
             $table_data .= '<tr  onclick=pair_Data('.$row->id.') >';
             $table_data .= '<th>' . $row->id . '</th>';
-            $table_data .= '<td>' . $row->left_rfid . '</td>';
-            $table_data .= '<td>' . $row->right_rfid . '</td>';
+            $table_data .= '<td style="font-size: 13px">' . $row->left_rfid . '</td>';
+            $table_data .= '<td style="font-size: 13px">' . $row->right_rfid . '</td>';
             if($row->pair_status == 2){
-                $table_data .= '<td><span class="text-c-pink f-w-600">Fail</span></td>';
+                $table_data .= '<td><span class="text-c-pink f-w-600">Fail</span><p class="text-muted ">'.$row->updated_at.'</p></td>';
             }
             else{
-                $table_data .= '<td><span class="text-c-green f-w-600"> Pass </span></td>';
+                $table_data .= '<td><span class="text-c-green f-w-600"> Pass </span><p class="text-muted ">'.$row->updated_at.'</p></td>';
             }
             if($row->final_status == 1){
-                $table_data .= '<td><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Matched </span></td>';
+                $table_data .= '<td><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Matched </span><p class="text-muted ">'.$row->final_test.'</p></td>';
             }
             else if($row->final_status == 2){
-                $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Mismatched </span></td>';
+                $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Mismatched </span><p class="text-muted ">'.$row->final_test.'</p></td>';
             }
             else{
                 $table_data .= '<td><span class="text-c-yellow f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
@@ -136,12 +135,6 @@ class DashboardController extends Controller
                 $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Rejected </span></td>';
             }
             $table_data .= '<td><p class="text-muted ">'.$row->device.'</p></td>';
-            if($row->final_test !="" ){
-                $table_data .= '<td><p class="text-muted ">'.$row->final_test.'</p></td>';            
-            }
-            else{
-                $table_data .= '<td><p class="text-muted ">'.$row->updated_at.'</p></td>';
-            }
             $table_data .= '</tr>';
         }
         $table_data .= '</tbody>';
