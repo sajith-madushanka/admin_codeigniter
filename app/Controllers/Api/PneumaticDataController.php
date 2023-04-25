@@ -245,10 +245,10 @@ class PneumaticDataController extends Controller
                         $lrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('LRFID'))->orwhere('right_rfid', $this->request->getVar('LRFID'))->first();
                         $rrfid_entry = $pneumatic_pair->where('left_rfid', $this->request->getVar('RRFID'))->orwhere('right_rfid', $this->request->getVar('RRFID'))->first();
                         if($lrfid_entry){
-                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),'updated_at'		=>  $data['updated_at']]);
+                            $pneumatic_pair->update($lrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),'updated_at'		=>  $lrfid_entry['updated_at']]);
                         }
                         if($rrfid_entry){
-                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),'updated_at'		=>  $data['updated_at']]);
+                            $pneumatic_pair->update($rrfid_entry['id'],['final_status'		=>  2, 'final_test'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),'updated_at'		=>  $rrfid_entry['updated_at']]);
                         }
                         $ok = 0;
                         $message = 'pair didnt match';
