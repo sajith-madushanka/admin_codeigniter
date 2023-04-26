@@ -334,6 +334,9 @@ class PneumaticDataController extends Controller
                 $bit = 1; 
                 $deviceModel->update($device['id'],['status'		=>  0]);
             }
+            if($device['file'] !=  $this->request->getVar('version')){
+                $deviceModel->update($device['id'],['file'		=>  $this->request->getVar('version')]);
+            }
             $ok = 1;
             $message = "unix time";
         }
@@ -364,7 +367,7 @@ class PneumaticDataController extends Controller
                     $file = $this->request->getFile('data');
                     unlink(WRITEPATH . 'uploads/' . $file->getName());
                     $file->move(WRITEPATH . 'uploads');
-                    $deviceModel->update($device['id'],['status'		=>  1,'file' => 'uploads/' . $file->getName() ]);
+                    $deviceModel->update($device['id'],['status'		=>  1]);
                     $ok = 1;
                     $message = "uploaded the file";
                 } catch (\Throwable $e) {
