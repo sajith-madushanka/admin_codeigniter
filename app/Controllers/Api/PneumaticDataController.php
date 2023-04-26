@@ -70,12 +70,12 @@ class PneumaticDataController extends Controller
                            
                             if(strpos($key, "HP") !== false){
                                 
-                                if(26.4 > $data ||  $data > 31.6){
+                                if(25.5 > $data ||  $data > 32.5){
                                     $status = 2; 
                                 }
                             }
                             else{
-                                if(7.5 > $data ||  $data > 12.5){
+                                if(6.5 > $data ||  $data > 13.5){
                                     
                                     $status = 2;
                                 }
@@ -86,12 +86,12 @@ class PneumaticDataController extends Controller
                            
                             if(strpos($key, "HP") !== false){
 
-                                if(30.4 > $data ||  $data > 35.6){
+                                if(29.5 > $data ||  $data > 36.5){
                                     $status = 2; 
                                 }
                             }
                             else{
-                                if(7.5 > $data ||  $data > 12.5){
+                                if(6.5 > $data ||  $data > 13.5){
                                     $status = 2;
                                 }
                             }
@@ -101,12 +101,12 @@ class PneumaticDataController extends Controller
                            
                             if(strpos($key, "HP") !== false){
 
-                                if(32.4 > $data ||  $data > 37.6){
+                                if(31.5 > $data ||  $data > 38.5){
                                     $status = 2; 
                                 }
                             }
                             else{
-                                if(7.5 > $data ||  $data > 12.5){
+                                if(6.5 > $data ||  $data > 13.5){
                                     $status = 2;
                                 }
                             }
@@ -116,12 +116,12 @@ class PneumaticDataController extends Controller
                            
                             if(strpos($key, "HP") !== false){
                                 
-                                if(26.4 > $data ||  $data > 31.6){
+                                if(25.5 > $data ||  $data > 32.5){
                                     $status = 2; 
                                 }
                             }
                             else{
-                                if(7.5 > $data ||  $data > 12.5){
+                                if(6.5 > $data ||  $data > 13.5){
                                     $status = 2;
                                 }
                             }
@@ -131,12 +131,12 @@ class PneumaticDataController extends Controller
                            
                             if(strpos($key, "HP") !== false){
 
-                                if(30.4 > $data ||  $data > 35.6){
+                                if(29.5 > $data ||  $data > 36.5){
                                     $status = 2; 
                                 }
                             }
                             else{
-                                if(7.5 > $data ||  $data > 12.5){
+                                if(6.5 > $data ||  $data > 13.5){
                                     $status = 2;
                                 }
                             }
@@ -146,12 +146,12 @@ class PneumaticDataController extends Controller
                            
                             if(strpos($key, "HP") !== false){
 
-                                if(32.4 > $data ||  $data > 37.6){
+                                if(31.5 > $data ||  $data > 38.5){
                                     $status = 2; 
                                 }
                             }
                             else{
-                                if(7.5 > $data ||  $data > 12.5){
+                                if(6.5 > $data ||  $data > 13.5){
                                     $status = 2;
                                 }
                             }
