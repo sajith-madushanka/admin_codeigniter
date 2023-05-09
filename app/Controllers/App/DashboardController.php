@@ -264,67 +264,100 @@ class DashboardController extends Controller
             if(25.5 <= $lt->HP1 &&  $lt->HP1 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP1 . '</td>';
             }
+            else if(!$lt->HP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP1 = 0 ? "err1":$lt->HP1 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP1 . '</td>';
             }
             if(25.5 <= $lt->HP2 &&  $lt->HP2 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP2 . '</td>';
             }
+            else if(!$lt->HP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP2 = 0 ? "err1":$lt->HP2 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP2 . '</td>';
             }
             if(25.5 <= $lt->HP3 &&  $lt->HP3 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP3 . '</td>';
             }
+            else if(!$lt->HP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP3 = 0 ? "err1":$lt->HP3 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP3 . '</td>';
             }
             if(25.5 <= $lt->HP4 &&  $lt->HP4 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP4 . '</td>';
             }
+            else if(!$lt->HP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP4 = 0 ? "err1":$lt->HP4 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP4 . '</td>';
             }
             if(25.5 <= $lt->HP5 &&  $lt->HP5 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP5 . '</td>';
             }
+            else if(!$lt->HP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP5 = 0 ? "err1":$lt->HP5 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP5 . '</td>';
             }
             if(25.5 <= $lt->HP6 &&  $lt->HP6 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP6 . '</td>';
             }
+            else if(!$lt->HP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP6 = 0 ? "err1":$lt->HP6 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP6 . '</td>';
             }
             if(25.5 <= $lt->HP7 &&  $lt->HP7 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP7 . '</td>';
             }
+            else if(!$lt->HP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP7 = 0 ? "err1":$lt->HP7 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP7 . '</td>';
             }
             if(25.5 <= $lt->HP8 &&  $lt->HP8 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP8 . '</td>';
             }
+            else if(!$lt->HP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP8 = 0 ? "err1":$lt->HP8 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP8 . '</td>';
             }
             if(25.5 <= $lt->HP9 &&  $lt->HP9 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP9 . '</td>';
             }
+            else if(!$lt->HP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP9 = 0 ? "err1":$lt->HP9 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP9 . '</td>';
             }
             if(25.5 <= $lt->HP10 &&  $lt->HP10 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP10 . '</td>';
             }
+            else if(!$lt->HP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP10 = 0 ? "err1":$lt->HP10 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP10. '</td>';
             }
 
 
             if(6.5 <= $lt->LP1 &&  $lt->LP1 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP1 . '</td>';
+            }
+            else if(!$lt->LP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP1 . '</td>';
@@ -332,11 +365,17 @@ class DashboardController extends Controller
             if(6.5 <= $lt->LP2 &&  $lt->LP2 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP2 . '</td>';
             }
+            else if(!$lt->LP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP2 . '</td>';
             }
             if(6.5 <= $lt->LP3 &&  $lt->LP3 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP3 . '</td>';
+            }
+            else if(!$lt->LP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP3 . '</td>';
@@ -344,11 +383,17 @@ class DashboardController extends Controller
             if(6.5 <= $lt->LP4 &&  $lt->LP4 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP4 . '</td>';
             }
+            else if(!$lt->LP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP4 . '</td>';
             }
             if(6.5 <= $lt->LP5 &&  $lt->LP5 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP5 . '</td>';
+            }
+            else if(!$lt->LP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP5 . '</td>';
@@ -356,11 +401,17 @@ class DashboardController extends Controller
             if(6.5 <= $lt->LP6 &&  $lt->LP6 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP6 . '</td>';
             }
+            else if(!$lt->LP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP6 . '</td>';
             }
             if(6.5 <= $lt->LP7 &&  $lt->LP7 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP7 . '</td>';
+            }
+            else if(!$lt->LP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP7 . '</td>';
@@ -368,17 +419,26 @@ class DashboardController extends Controller
             if(6.5 <= $lt->LP8 &&  $lt->LP8 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP8 . '</td>';
             }
+            else if(!$lt->LP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP8 . '</td>';
             }
             if(6.5 <= $lt->LP9 &&  $lt->LP9 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP9 . '</td>';
             }
+            else if(!$lt->LP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP9 . '</td>';
             }
             if(6.5 <= $lt->LP10 &&  $lt->LP10 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lt->LP10 . '</td>';
+            }
+            else if(!$lt->LP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP10 . '</td>';
@@ -392,11 +452,17 @@ class DashboardController extends Controller
             if(29.5 <= $lm->HP1 &&  $lm->HP1 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP1 . '</td>';
             }
+            else if(!$lm->HP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP1 . '</td>';
             }
             if(29.5 <= $lm->HP2 &&  $lm->HP2 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP2 . '</td>';
+            }
+            else if(!$lm->HP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP2 . '</td>';
@@ -404,11 +470,17 @@ class DashboardController extends Controller
             if(29.5 <= $lm->HP3 &&  $lm->HP3 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP3 . '</td>';
             }
+            else if(!$lm->HP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP3 . '</td>';
             }
             if(29.5 <= $lm->HP4 &&  $lm->HP4 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP4 . '</td>';
+            }
+            else if(!$lm->HP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP4 . '</td>';
@@ -416,11 +488,17 @@ class DashboardController extends Controller
             if(29.5 <= $lm->HP5 &&  $lm->HP5 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP5 . '</td>';
             }
+            else if(!$lm->HP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP5 . '</td>';
             }
             if(29.5 <= $lm->HP6 &&  $lm->HP6 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP6 . '</td>';
+            }
+            else if(!$lm->HP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP6 . '</td>';
@@ -428,11 +506,17 @@ class DashboardController extends Controller
             if(29.5 <= $lm->HP7 &&  $lm->HP7 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP7 . '</td>';
             }
+            else if(!$lm->HP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP7 . '</td>';
             }
             if(29.5 <= $lm->HP8 &&  $lm->HP8 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP8 . '</td>';
+            }
+            else if(!$lm->HP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP8 . '</td>';
@@ -440,11 +524,17 @@ class DashboardController extends Controller
             if(29.5 <= $lm->HP9 &&  $lm->HP9 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP9 . '</td>';
             }
+            else if(!$lm->HP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP9 . '</td>';
             }
             if(29.5 <= $lm->HP10 &&  $lm->HP10 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $lm->HP10 . '</td>';
+            }
+            else if(!$lm->HP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->HP10 . '</td>';
@@ -454,11 +544,17 @@ class DashboardController extends Controller
             if(6.5 <= $lm->LP1 &&  $lm->LP1 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP1 . '</td>';
             }
+            else if(!$lm->LP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP1 . '</td>';
             }
             if(6.5 <= $lm->LP2 &&  $lm->LP2 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP2 . '</td>';
+            }
+            else if(!$lm->LP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP2 . '</td>';
@@ -466,11 +562,17 @@ class DashboardController extends Controller
             if(6.5 <= $lm->LP3 &&  $lm->LP3 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP3 . '</td>';
             }
+            else if(!$lm->LP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP3 . '</td>';
             }
             if(6.5 <= $lm->LP4 &&  $lm->LP4 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP4 . '</td>';
+            }
+            else if(!$lm->LP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP4 . '</td>';
@@ -478,11 +580,17 @@ class DashboardController extends Controller
             if(6.5 <= $lm->LP5 &&  $lm->LP5 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP5 . '</td>';
             }
+            else if(!$lm->LP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP5 . '</td>';
             }
             if(6.5 <= $lm->LP6 &&  $lm->LP6 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP6 . '</td>';
+            }
+            else if(!$lm->LP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP6 . '</td>';
@@ -490,11 +598,17 @@ class DashboardController extends Controller
             if(6.5 <= $lm->LP7 &&  $lm->LP7 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP7 . '</td>';
             }
+            else if(!$lm->LP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP7 . '</td>';
             }
             if(6.5 <= $lm->LP8 &&  $lm->LP8 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP8 . '</td>';
+            }
+            else if(!$lm->LP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP8 . '</td>';
@@ -502,11 +616,17 @@ class DashboardController extends Controller
             if(6.5 <= $lm->LP9 &&  $lm->LP9 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP9 . '</td>';
             }
+            else if(!$lm->LP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP9 . '</td>';
             }
             if(6.5 <= $lm->LP10 &&  $lm->LP10 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lm->LP10 . '</td>';
+            }
+            else if(!$lm->LP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP10 . '</td>';
@@ -520,11 +640,17 @@ class DashboardController extends Controller
             if(31.5 <= $lb->HP1 &&  $lb->HP1 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP1 . '</td>';
             }
+            else if(!$lb->HP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP1 . '</td>';
             }
             if(31.5 <= $lb->HP2 &&  $lb->HP2 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP2 . '</td>';
+            }
+            else if(!$lb->HP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP2 . '</td>';
@@ -532,11 +658,17 @@ class DashboardController extends Controller
             if(31.5 <= $lb->HP3 &&  $lb->HP3 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP3 . '</td>';
             }
+            else if(!$lb->HP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP3 . '</td>';
             }
             if(31.5 <= $lb->HP4 &&  $lb->HP4 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP4 . '</td>';
+            }
+            else if(!$lb->HP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP4 . '</td>';
@@ -544,11 +676,17 @@ class DashboardController extends Controller
             if(31.5 <= $lb->HP5 &&  $lb->HP5 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP5 . '</td>';
             }
+            else if(!$lb->HP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP5 . '</td>';
             }
             if(31.5 <= $lb->HP6 &&  $lb->HP6 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP6 . '</td>';
+            }
+            else if(!$lb->HP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP6 . '</td>';
@@ -556,11 +694,17 @@ class DashboardController extends Controller
             if(31.5 <= $lb->HP7 &&  $lb->HP7 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP7 . '</td>';
             }
+            else if(!$lb->HP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP7 . '</td>';
             }
             if(31.5 <= $lb->HP8 &&  $lb->HP8 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP8 . '</td>';
+            }
+            else if(!$lb->HP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP8 . '</td>';
@@ -568,11 +712,17 @@ class DashboardController extends Controller
             if(31.5 <= $lb->HP9 &&  $lb->HP9 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP9 . '</td>';
             }
+            else if(!$lb->HP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP9 . '</td>';
             }
             if(31.5 <= $lb->HP10 &&  $lb->HP10 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $lb->HP10 . '</td>';
+            }
+            else if(!$lb->HP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->HP10 . '</td>';
@@ -582,11 +732,17 @@ class DashboardController extends Controller
             if(6.5 <= $lb->LP1 &&  $lb->LP1 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP1 . '</td>';
             }
+            else if(!$lb->LP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP1 . '</td>';
             }
             if(6.5 <= $lb->LP2 &&  $lb->LP2 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP2 . '</td>';
+            }
+            else if(!$lb->LP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP2 . '</td>';
@@ -594,11 +750,17 @@ class DashboardController extends Controller
             if(6.5 <= $lb->LP3 &&  $lb->LP3 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP3 . '</td>';
             }
+            else if(!$lb->LP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP3 . '</td>';
             }
             if(6.5 <= $lb->LP4 &&  $lb->LP4 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP4 . '</td>';
+            }
+            else if(!$lb->LP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP4 . '</td>';
@@ -606,11 +768,17 @@ class DashboardController extends Controller
             if(6.5 <= $lb->LP5 &&  $lb->LP5 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP5 . '</td>';
             }
+            else if(!$lb->LP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP5 . '</td>';
             }
             if(6.5 <= $lb->LP6 &&  $lb->LP6 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP6 . '</td>';
+            }
+            else if(!$lb->LP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP6 . '</td>';
@@ -618,11 +786,17 @@ class DashboardController extends Controller
             if(6.5 <= $lb->LP7 &&  $lb->LP7 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP7 . '</td>';
             }
+            else if(!$lb->LP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP7 . '</td>';
             }
             if(6.5 <= $lb->LP8 &&  $lb->LP8 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP8 . '</td>';
+            }
+            else if(!$lb->LP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP8 . '</td>';
@@ -630,11 +804,17 @@ class DashboardController extends Controller
             if(6.5 <= $lb->LP9 &&  $lb->LP9 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP9 . '</td>';
             }
+            else if(!$lb->LP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP9 . '</td>';
             }
             if(6.5 <= $lb->LP10 &&  $lb->LP10 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $lb->LP10 . '</td>';
+            }
+            else if(!$lb->LP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP10 . '</td>';
@@ -648,11 +828,17 @@ class DashboardController extends Controller
             if(25.5 <= $rt->HP1 &&  $rt->HP1 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP1 . '</td>';
             }
+            else if(!$rt->HP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP1 . '</td>';
             }
             if(25.5 <= $rt->HP2 &&  $rt->HP2 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP2 . '</td>';
+            }
+            else if(!$rt->HP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP2 . '</td>';
@@ -660,11 +846,17 @@ class DashboardController extends Controller
             if(25.5 <= $rt->HP3 &&  $rt->HP3 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP3 . '</td>';
             }
+            else if(!$rt->HP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP3 . '</td>';
             }
             if(25.5 <= $rt->HP4 &&  $rt->HP4 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP4 . '</td>';
+            }
+            else if(!$rt->HP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP4 . '</td>';
@@ -672,11 +864,17 @@ class DashboardController extends Controller
             if(25.5 <= $rt->HP5 &&  $rt->HP5 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP5 . '</td>';
             }
+            else if(!$rt->HP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP5 . '</td>';
             }
             if(25.5 <= $rt->HP6 &&  $rt->HP6 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP6 . '</td>';
+            }
+            else if(!$rt->HP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP6 . '</td>';
@@ -684,11 +882,17 @@ class DashboardController extends Controller
             if(25.5 <= $rt->HP7 &&  $rt->HP7 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP7 . '</td>';
             }
+            else if(!$rt->HP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP7 . '</td>';
             }
             if(25.5 <= $rt->HP8 &&  $rt->HP8 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP8 . '</td>';
+            }
+            else if(!$rt->HP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP8 . '</td>';
@@ -696,11 +900,17 @@ class DashboardController extends Controller
             if(25.5 <= $rt->HP9 &&  $rt->HP9 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP9 . '</td>';
             }
+            else if(!$rt->HP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP9 . '</td>';
             }
             if(25.5 <= $rt->HP10 &&  $rt->HP10 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $rt->HP10 . '</td>';
+            }
+            else if(!$rt->HP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->HP10 . '</td>';
@@ -710,11 +920,17 @@ class DashboardController extends Controller
             if(6.5 <= $rt->LP1 &&  $rt->LP1 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP1 . '</td>';
             }
+            else if(!$rt->LP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP1 . '</td>';
             }
             if(6.5 <= $rt->LP2 &&  $rt->LP2 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP2 . '</td>';
+            }
+            else if(!$rt->LP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP2 . '</td>';
@@ -722,11 +938,17 @@ class DashboardController extends Controller
             if(6.5 <= $rt->LP3 &&  $rt->LP3 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP3 . '</td>';
             }
+            else if(!$rt->LP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP3 . '</td>';
             }
             if(6.5 <= $rt->LP4 &&  $rt->LP4 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP4 . '</td>';
+            }
+            else if(!$rt->LP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP4 . '</td>';
@@ -734,11 +956,17 @@ class DashboardController extends Controller
             if(6.5 <= $rt->LP5 &&  $rt->LP5 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP5 . '</td>';
             }
+            else if(!$rt->LP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP5 . '</td>';
             }
             if(6.5 <= $rt->LP6 &&  $rt->LP6 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP6 . '</td>';
+            }
+            else if(!$rt->LP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP6 . '</td>';
@@ -746,11 +974,17 @@ class DashboardController extends Controller
             if(6.5 <= $rt->LP7 &&  $rt->LP7 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP7 . '</td>';
             }
+            else if(!$rt->LP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP7 . '</td>';
             }
             if(6.5 <= $rt->LP8 &&  $rt->LP8 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP8 . '</td>';
+            }
+            else if(!$rt->LP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP8 . '</td>';
@@ -758,11 +992,17 @@ class DashboardController extends Controller
             if(6.5 <= $rt->LP9 &&  $rt->LP9 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP9 . '</td>';
             }
+            else if(!$rt->LP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP9 . '</td>';
             }
             if(6.5 <= $rt->LP10 &&  $rt->LP10 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rt->LP10 . '</td>';
+            }
+            else if(!$rt->LP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP10 . '</td>';
@@ -776,11 +1016,17 @@ class DashboardController extends Controller
             if(29.5 <= $rm->HP1 &&  $rm->HP1 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP1 . '</td>';
             }
+            else if(!$rm->HP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP1 . '</td>';
             }
             if(29.5 <= $rm->HP2 &&  $rm->HP2 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP2 . '</td>';
+            }
+            else if(!$rm->HP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP2 . '</td>';
@@ -788,11 +1034,17 @@ class DashboardController extends Controller
             if(29.5 <= $rm->HP3 &&  $rm->HP3 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP3 . '</td>';
             }
+            else if(!$rm->HP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP3 . '</td>';
             }
             if(29.5 <= $rm->HP4 &&  $rm->HP4 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP4 . '</td>';
+            }
+            else if(!$rm->HP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP4 . '</td>';
@@ -800,11 +1052,17 @@ class DashboardController extends Controller
             if(29.5 <= $rm->HP5 &&  $rm->HP5 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP5 . '</td>';
             }
+            else if(!$rm->HP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP5 . '</td>';
             }
             if(29.5 <= $rm->HP6 &&  $rm->HP6 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP6 . '</td>';
+            }
+            else if(!$rm->HP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP6 . '</td>';
@@ -812,11 +1070,17 @@ class DashboardController extends Controller
             if(29.5 <= $rm->HP7 &&  $rm->HP7 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP7 . '</td>';
             }
+            else if(!$rm->HP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP7 . '</td>';
             }
             if(29.5 <= $rm->HP8 &&  $rm->HP8 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP8 . '</td>';
+            }
+            else if(!$rm->HP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP8 . '</td>';
@@ -824,11 +1088,17 @@ class DashboardController extends Controller
             if(29.5 <= $rm->HP9 &&  $rm->HP9 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP9 . '</td>';
             }
+            else if(!$rm->HP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP9 . '</td>';
             }
             if(29.5 <= $rm->HP10 &&  $rm->HP10 <= 36.5){
                 $table_data .= '<td class="text-c-green">' . $rm->HP10 . '</td>';
+            }
+            else if(!$rm->HP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->HP10 . '</td>';
@@ -839,11 +1109,17 @@ class DashboardController extends Controller
             if(6.5 <= $rm->LP1 &&  $rm->LP1 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP1 . '</td>';
             }
+            else if(!$rm->LP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP1 . '</td>';
             }
             if(6.5 <= $rm->LP2 &&  $rm->LP2 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP2 . '</td>';
+            }
+            else if(!$rm->LP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP2 . '</td>';
@@ -851,11 +1127,17 @@ class DashboardController extends Controller
             if(6.5 <= $rm->LP3 &&  $rm->LP3 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP3 . '</td>';
             }
+            else if(!$rm->LP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP3 . '</td>';
             }
             if(6.5 <= $rm->LP4 &&  $rm->LP4 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP4 . '</td>';
+            }
+            else if(!$rm->LP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP4 . '</td>';
@@ -863,11 +1145,17 @@ class DashboardController extends Controller
             if(6.5 <= $rm->LP5 &&  $rm->LP5 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP5 . '</td>';
             }
+            else if(!$rm->LP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP5 . '</td>';
             }
             if(6.5 <= $rm->LP6 &&  $rm->LP6 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP6 . '</td>';
+            }
+            else if(!$rm->LP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP6 . '</td>';
@@ -875,11 +1163,17 @@ class DashboardController extends Controller
             if(6.5 <= $rm->LP7 &&  $rm->LP7 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP7 . '</td>';
             }
+            else if(!$rm->LP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP7 . '</td>';
             }
             if(6.5 <= $rm->LP8 &&  $rm->LP8 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP8 . '</td>';
+            }
+            else if(!$rm->LP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP8 . '</td>';
@@ -887,11 +1181,17 @@ class DashboardController extends Controller
             if(6.5 <= $rm->LP9 &&  $rm->LP9 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP9 . '</td>';
             }
+            else if(!$rm->LP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP9 . '</td>';
             }
             if(6.5 <= $rm->LP10 &&  $rm->LP10 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rm->LP10 . '</td>';
+            }
+            else if(!$rm->LP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP10 . '</td>';
@@ -905,11 +1205,17 @@ class DashboardController extends Controller
             if(31.5 <= $rb->HP1 &&  $rb->HP1 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP1 . '</td>';
             }
+            else if(!$rb->HP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP1 . '</td>';
             }
             if(31.5 <= $rb->HP2 &&  $rb->HP2 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP2 . '</td>';
+            }
+            else if(!$rb->HP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP2 . '</td>';
@@ -917,11 +1223,17 @@ class DashboardController extends Controller
             if(31.5 <= $rb->HP3 &&  $rb->HP3 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP3 . '</td>';
             }
+            else if(!$rb->HP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP3 . '</td>';
             }
             if(31.5 <= $rb->HP4 &&  $rb->HP4 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP4 . '</td>';
+            }
+            else if(!$rb->HP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP4 . '</td>';
@@ -929,11 +1241,17 @@ class DashboardController extends Controller
             if(31.5 <= $rb->HP5 &&  $rb->HP5 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP5 . '</td>';
             }
+            else if(!$rb->HP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP5 . '</td>';
             }
             if(31.5 <= $rb->HP6 &&  $rb->HP6 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP6 . '</td>';
+            }
+            else if(!$rb->HP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP6 . '</td>';
@@ -941,11 +1259,17 @@ class DashboardController extends Controller
             if(31.5 <= $rb->HP7 &&  $rb->HP7 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP7 . '</td>';
             }
+            else if(!$rb->HP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP7 . '</td>';
             }
             if(31.5 <= $rb->HP8 &&  $rb->HP8 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP8 . '</td>';
+            }
+            else if(!$rb->HP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP8 . '</td>';
@@ -953,11 +1277,17 @@ class DashboardController extends Controller
             if(31.5 <= $rb->HP9 &&  $rb->HP9 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP9 . '</td>';
             }
+            else if(!$rb->HP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP9 . '</td>';
             }
             if(31.5 <= $rb->HP10 &&  $rb->HP10 <= 38.5){
                 $table_data .= '<td class="text-c-green">' . $rb->HP10 . '</td>';
+            }
+            else if(!$rb->HP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->HP10 . '</td>';
@@ -967,11 +1297,17 @@ class DashboardController extends Controller
             if(6.5 <= $rb->LP1 &&  $rb->LP1 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP1 . '</td>';
             }
+            else if(!$rb->LP1){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP1 . '</td>';
             }
             if(6.5 <= $rb->LP2 &&  $rb->LP2 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP2 . '</td>';
+            }
+            else if(!$rb->LP2){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP2 . '</td>';
@@ -979,11 +1315,17 @@ class DashboardController extends Controller
             if(6.5 <= $rb->LP3 &&  $rb->LP3 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP3 . '</td>';
             }
+            else if(!$rb->LP3){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP3 . '</td>';
             }
             if(6.5 <= $rb->LP4 &&  $rb->LP4 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP4 . '</td>';
+            }
+            else if(!$rb->LP4){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP4 . '</td>';
@@ -991,11 +1333,17 @@ class DashboardController extends Controller
             if(6.5 <= $rb->LP5 &&  $rb->LP5 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP5 . '</td>';
             }
+            else if(!$rb->LP5){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP5 . '</td>';
             }
             if(6.5 <= $rb->LP6 &&  $rb->LP6 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP6 . '</td>';
+            }
+            else if(!$rb->LP6){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP6 . '</td>';
@@ -1003,11 +1351,17 @@ class DashboardController extends Controller
             if(6.5 <= $rb->LP7 &&  $rb->LP7 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP7 . '</td>';
             }
+            else if(!$rb->LP7){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP7 . '</td>';
             }
             if(6.5 <= $rb->LP8 &&  $rb->LP8 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP8 . '</td>';
+            }
+            else if(!$rb->LP8){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP8 . '</td>';
@@ -1015,11 +1369,17 @@ class DashboardController extends Controller
             if(6.5 <= $rb->LP9 &&  $rb->LP9 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP9 . '</td>';
             }
+            else if(!$rb->LP9){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
+            }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP9 . '</td>';
             }
             if(6.5 <= $rb->LP10 &&  $rb->LP10 <= 13.5){
                 $table_data .= '<td class="text-c-green">' . $rb->LP10 . '</td>';
+            }
+            else if(!$rb->LP10){
+                $table_data .= '<td class="text-c-pink">' . "err1". '</td>';
             }
             else{
                 $table_data .= '<td class="text-c-pink">' . $rb->LP10 . '</td>';
