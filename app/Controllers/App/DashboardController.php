@@ -265,61 +265,61 @@ class DashboardController extends Controller
                 $table_data .= '<td class="text-c-green">' . $lt->HP1 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP1 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP1 = 0 ? "err1":$lt->HP1 . '</td>';
             }
             if(25.5 <= $lt->HP2 &&  $lt->HP2 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP2 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP2 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP2 = 0 ? "err1":$lt->HP2 . '</td>';
             }
             if(25.5 <= $lt->HP3 &&  $lt->HP3 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP3 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP3 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP3 = 0 ? "err1":$lt->HP3 . '</td>';
             }
             if(25.5 <= $lt->HP4 &&  $lt->HP4 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP4 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP4 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP4 = 0 ? "err1":$lt->HP4 . '</td>';
             }
             if(25.5 <= $lt->HP5 &&  $lt->HP5 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP5 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP5 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP5 = 0 ? "err1":$lt->HP5 . '</td>';
             }
             if(25.5 <= $lt->HP6 &&  $lt->HP6 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP6 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP6 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP6 = 0 ? "err1":$lt->HP6 . '</td>';
             }
             if(25.5 <= $lt->HP7 &&  $lt->HP7 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP7 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP7 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP7 = 0 ? "err1":$lt->HP7 . '</td>';
             }
             if(25.5 <= $lt->HP8 &&  $lt->HP8 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP8 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP8 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP8 = 0 ? "err1":$lt->HP8 . '</td>';
             }
             if(25.5 <= $lt->HP9 &&  $lt->HP9 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP9 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP9 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP9 = 0 ? "err1":$lt->HP9 . '</td>';
             }
             if(25.5 <= $lt->HP10 &&  $lt->HP10 <= 32.5){
                 $table_data .= '<td class="text-c-green">' . $lt->HP10 . '</td>';
             }
             else{
-                $table_data .= '<td class="text-c-pink">' . $lt->HP10 . '</td>';
+                $table_data .= '<td class="text-c-pink">' . $lt->HP10 = 0 ? "err1":$lt->HP10 . '</td>';
             }
 
 
