@@ -1388,6 +1388,8 @@ class DashboardController extends Controller
             $table_data .= '</tr >';
            
         }
+        $table_data .= '<tr >';
+        $table_data .= '<th>err1</th>';
         $table_data .= '</tbody>';
         return $this->response->setJSON([
             'table_data' => $table_data
