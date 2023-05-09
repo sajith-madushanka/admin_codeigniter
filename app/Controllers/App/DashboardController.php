@@ -1389,7 +1389,7 @@ class DashboardController extends Controller
            
         }
         $table_data .= '<tr >';
-        $table_data .= '<th>err1</th>';
+        $table_data .= '<td colspan="23"  style="font-size: 13px;padding-left:20px ;padding-top:20px"> note : err1 arises due to instability of pressure cycles or not reaching the relevant pressure thresholds.</td></tr>';
         $table_data .= '</tbody>';
         return $this->response->setJSON([
             'table_data' => $table_data
