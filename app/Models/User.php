@@ -9,7 +9,8 @@ class User extends Model{
 	protected $allowedFields = [
         'name',
         'email',
-        'password'
+        'password',
+        'is_super'
     ];
 
 }

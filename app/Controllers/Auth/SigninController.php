@@ -28,6 +28,7 @@ class SigninController extends Controller
                     'id' => $data['id'],
                     'name' => $data['name'],
                     'email' => $data['email'],
+                    'is_super' => $data['is_super'],
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);

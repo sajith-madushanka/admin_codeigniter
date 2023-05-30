@@ -33,6 +33,11 @@ class PneumaticPair extends Migration
                 'constraint' => '1',
                 'default' => 0,
             ],
+            'pinned' => [
+                'type' => 'VARCHAR',
+                'constraint' => '1',
+                'default' => 0,
+            ],
             'device' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'

@@ -8507,7 +8507,36 @@ table.table-bordered.dataTable tbody td:focus {
   outline: none; }
 
 .card .card-block ul.pagination li {
-  margin-right: 0; }
+  
+  /* border-radius: 15px; */
+ }
+ .card .card-block ul.pagination {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 50px;
+ }
+
+ .pagination {
+  margin-bottom: 15px;
+}
+
+ .card .card-block ul.pagination li a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 50px;
+ }
+
+ .card .card-block ul.pagination li.active a {
+  background-color: #4CAF50;
+  color: white;
+ }
+
+ .card .card-block ul.pagination  li:hover:not(.active) a {
+  background-color: #ddd;
+  border-radius: 50px;
+}
 
 .page-item.active .page-link {
   background-color: #4680ff;

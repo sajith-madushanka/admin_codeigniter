@@ -25,6 +25,11 @@ class User extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
+            'is_super' => [
+                'type' => 'VARCHAR',
+                'constraint' => '1',
+                'default' => 0,
+            ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp'
         ]);

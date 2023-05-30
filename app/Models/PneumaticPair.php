@@ -14,7 +14,8 @@ class PneumaticPair extends Model{
         'final_status',
         'device',
         'updated_at',
-        'final_test'
+        'final_test',
+        'pinned'
     ];
 
 }

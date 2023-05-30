@@ -2,6 +2,7 @@
 namespace App\Controllers\App; 
 use CodeIgniter\Controller;
 use App\Models\PneumaticPair;
+use App\Models\RawData;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\PneumaticPairData;
   
@@ -31,6 +32,7 @@ class DashboardController extends Controller
     public function getData()
     {
         try{
+        $session = session();
         $filter = $this->request->getPost('keyword') ?? '';
         $page = $this->request->getPost('page') ?? 1;
         $start = $this->request->getPost('start') ?? '';
@@ -86,11 +88,11 @@ class DashboardController extends Controller
             $pneumatic_pair->like('id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
             $rows = $pneumatic_pair->countAllResults();
             $pneumatic_pair->like('id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
-            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
+            $data =  $pneumatic_pair->orderBy('pinned', 'desc')->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
         }
         else{
             $rows = $pneumatic_pair->countAllResults();
-            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
+            $data =  $pneumatic_pair->orderBy('pinned', 'desc')->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
         }
         $links = $pager->makeLinks($page,$limit,$rows);
         $table_data ='<thead>
@@ -101,40 +103,58 @@ class DashboardController extends Controller
                             <th>Pneumatic<br>Test</th>
                             <th>Final<br>Inspection</th>
                             <th>Overall<br>Inspection</th>
-                            <th>Tester ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
+                            <th>Tester ID</th>';
+        if($session->get('is_super')==1){
+            $table_data .= '        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            <tbody>';
+        }
+        else{
+            $table_data .= '    </tr>
+                            </thead>
+                            <tbody>';
+        }
+                            
         foreach ($data as  $row) {
-            $table_data .= '<tr  onclick=pair_Data('.$row->id.') >';
-            $table_data .= '<th>' . $row->id . '</th>';
-            $table_data .= '<td style="font-size: 13px">' . $row->left_rfid . '</td>';
-            $table_data .= '<td style="font-size: 13px">' . $row->right_rfid . '</td>';
+            $table_data .= '<tr>';
+            $table_data .= '<th onclick=pair_Data('.$row->id.')>' . $row->id . '</th>';
+            $table_data .= '<td onclick=pair_Data('.$row->id.') style="font-size: 13px">' . $row->left_rfid . '</td>';
+            $table_data .= '<td onclick=pair_Data('.$row->id.') style="font-size: 13px">' . $row->right_rfid . '</td>';
             if($row->pair_status == 2){
-                $table_data .= '<td><span class="text-c-pink f-w-600">Fail</span><p class="text-muted ">'.$row->updated_at.'</p></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-pink f-w-600">Fail</span><p class="text-muted ">'.$row->updated_at.'</p></td>';
             }
             else{
-                $table_data .= '<td><span class="text-c-green f-w-600"> Pass </span><p class="text-muted ">'.$row->updated_at.'</p></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-green f-w-600"> Pass </span><p class="text-muted ">'.$row->updated_at.'</p></td>';
             }
             if($row->final_status == 1){
-                $table_data .= '<td><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Matched </span><p class="text-muted ">'.$row->final_test.'</p></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Matched </span><p class="text-muted ">'.$row->final_test.'</p></td>';
             }
             else if($row->final_status == 2){
-                $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Mismatched </span><p class="text-muted ">'.$row->final_test.'</p></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Mismatched </span><p class="text-muted ">'.$row->final_test.'</p></td>';
             }
             else{
-                $table_data .= '<td><span class="text-c-yellow f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-yellow f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
             }
             if($row->final_status == 0){
-                $table_data .= '<td><span class="text-c-yellow f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-yellow f-w-600"><i class="icofont icofont-info-square"></i> Pending </span></td>';
             }
             else if($row->pair_status == 1 && $row->final_status == 1){
-                $table_data .= '<td><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Accepted </span></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-green f-w-600"><i class="icofont icofont-check-circled"></i> Accepted </span></td>';
             }
             else{
-                $table_data .= '<td><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Rejected </span></td>';
+                $table_data .= '<td onclick=pair_Data('.$row->id.')><span class="text-c-pink f-w-600"><i class="icofont icofont-warning-alt"></i> Rejected </span></td>';
             }
-            $table_data .= '<td><p class="text-muted ">'.$row->device.'</p></td>';
+            $table_data .= '<td onclick=pair_Data('.$row->id.')><p class="text-muted ">'.$row->device.'</p></td>';
+            if($session->get('is_super')==1){
+                $table_data .= '<td><button style="width:65px;height:25px;font-size:10px;padding: 0px 5px" onclick=delete_data('.$row->id.') class="btn btn-danger btn-sm btn-round">Delete</button>';
+                if($row->pinned == 0){
+                    $table_data .='<i style="padding:0px 0px 0px 10px;"  onclick=pin_data('.$row->id.',1)  class="ti-star"></i></td>';
+                }
+                else{
+                    $table_data .='<i style="padding:0px 0px 0px 10px; color:gold" onclick=pin_data('.$row->id.',0) class="ti-star"></i></td>';
+                }
+            }
             $table_data .= '</tr>';
         }
         $table_data .= '</tbody>';
@@ -207,6 +227,48 @@ class DashboardController extends Controller
             $csvData = json_encode($csvData);
             // Set the response headers for CSV download
             $filename = 'Pneumatic_test.csv';
+            header("Content-type: text/csv");
+            header("Content-Disposition: attachment; filename=$filename");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+        
+            // Output the CSV data
+            echo $csvData;
+            exit;
+        }
+        
+
+        } catch (\Throwable $e) {
+            return $this->respond($e->getMessage());
+        }
+    }
+
+    public function exportRawData()
+    {
+        
+        try{
+           
+            $data = new RawData();
+           $raw =  $data->where('pair_data_id',$this->request->getPost('id'))->get()->getResult();
+           $raw = $raw[0];
+           
+        
+        if($raw){
+            $csvData = "left top,left middle,left bottom,right top,right middle,right bottom";
+            $lt = json_decode($raw->lt);
+            $lm = json_decode($raw->lm);
+            $lb = json_decode($raw->lb);
+            $rt = json_decode($raw->rt);
+            $rm = json_decode($raw->rm);
+            $rb = json_decode($raw->rb);
+
+            for($i=0;$i<480;$i++){
+                $csvData .= "".$lt[$i].",".$lm[$i].",".$lb[$i].",".$rt[$i].",".$rm[$i].",".$rb[$i]."\n";
+            }
+            
+            $csvData = json_encode($csvData);
+            // Set the response headers for CSV download
+            $filename = 'raw_Data.csv';
             header("Content-type: text/csv");
             header("Content-Disposition: attachment; filename=$filename");
             header("Pragma: no-cache");
@@ -443,7 +505,7 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP10 . '</td>';
             }
-            $table_data .= '<td><p class="text-muted ">'.$row->date_time.'</p></td>';
+            $table_data .= '<td rowspan="2"><p class="text-muted ">'.$row->date_time.'</p><button style="width:100px;height:30px" onclick=raw_data('.$row->id.') class="btn btn-info btn-sm btn-round">Raw Data</button></td>';
             $table_data .= '</tr >';
             $table_data .= '<tr >';
             $table_data .= '<th> </th>';
@@ -1394,6 +1456,60 @@ class DashboardController extends Controller
         return $this->response->setJSON([
             'table_data' => $table_data
         ]);
+        } catch (\Throwable $e) {
+            return $this->respond($e->getMessage());
+        }
+    }
+
+    public function deleteData()
+    {
+        
+        try{
+        $session = session();
+        if($session->get('is_super')==1){
+            $id = $this->request->getPost('id');
+       
+        
+            $pneumatic_pair = new PneumaticPair();
+            $pneumatic_pair->where('id',$id)->delete();
+    
+            $pneumatic_pair_data = new PneumaticPairData();
+            $pneumatic_pair_data->where('pair_id',$id)->delete();
+           
+            
+            return $this->response->setJSON([
+                'deleted' => 1
+            ]);
+        }
+        return $this->response->setJSON([
+            'deleted' => 0
+        ]);
+       
+        } catch (\Throwable $e) {
+            return $this->respond($e->getMessage());
+        }
+    }
+
+    public function pinData()
+    {
+        
+        try{
+        $session = session();
+        if($session->get('is_super')==1){
+            $id = $this->request->getPost('id');
+            $status = $this->request->getPost('status');
+            $pneumatic_pair = new PneumaticPair();
+            $data = $pneumatic_pair->where('id', $id)->first();
+            $pneumatic_pair->update($id,['pinned'		=>  $status,'updated_at' =>  $data['updated_at']]);
+
+            return $this->response->setJSON([
+                'pinned' => 1
+            ]);
+        }
+        return $this->response->setJSON([
+            'pinned' => 0
+        ]);
+       
         } catch (\Throwable $e) {
             return $this->respond($e->getMessage());
         }

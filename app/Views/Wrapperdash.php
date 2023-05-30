@@ -152,9 +152,12 @@ $(document).on('click','.pagination a',function(e) {
     // Load pagination
     e.preventDefault();
     page = e.target.innerText;
+    tt = e.target;
+    var $span3 = $(this).closest('a');
+
+    console.log($span3);
+    console.log(tt);
     load_data(e.target.innerText,$('#search').val(),start_date,end_date);
-     
-   
 });
 
 $(document).on('input','#search',function(e) {
@@ -235,7 +238,8 @@ function load_data(page,keyword,start,end) {
         dataType: 'json',
         
         success: function(response) {
-            // console.log(response);
+            
+            console.log(response);
             // Update table data
             $('#back').hide();
             $('#head').show();
@@ -269,6 +273,82 @@ function pair_Data(id) {
             $('#head').hide();
             $('#D_table').html(response.table_data);
             $('#pagination').html('');
+        }
+    });
+}
+
+function raw_data(id) {
+    console.log(id);
+    $.ajax({
+        url: '<?php echo base_url(); ?>export_raw_data',
+        type: 'POST',
+        data: {
+            id: id
+        },
+        dataType: 'json',
+        
+        
+        success: function (data) {
+            if(data){
+                // Create a Blob with the CSV data
+                //console.log(response);
+                var blob = new Blob([data], {type: 'text/csv'});
+
+                // Create a temporary link element
+                var link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'raw_data.csv';// Set the download file name
+                link.click();
+
+                // Clean up
+                URL.revokeObjectURL(link.href);
+                link.remove();
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+        
+    });
+       
+}
+
+function delete_data(id) {
+    $.ajax({
+        url: '<?php echo base_url(); ?>delete_data',
+        type: 'POST',
+        data: {
+            id:id
+        },
+        dataType: 'json',
+        
+        success: function(response) {
+            // Update table data
+            console.log(response.deleted);
+            if(response.deleted == 1){
+                load_data(page,$('#search').val(),start_date,end_date);
+            }
+            
+        }
+    });
+}
+
+function pin_data(id,status) {
+    $.ajax({
+        url: '<?php echo base_url(); ?>pin_data',
+        type: 'POST',
+        data: {
+            id:id,
+            status:status
+        },
+        dataType: 'json',
+        
+        success: function(response) {
+            // Update table data
+            if(response.pinned == 1){
+                console.log(response.pinned);
+                load_data(page,$('#search').val(),start_date,end_date);
+            }
         }
     });
 }

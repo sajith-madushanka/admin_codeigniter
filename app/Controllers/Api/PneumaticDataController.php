@@ -4,6 +4,7 @@ use CodeIgniter\Controller;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\PneumaticPair;
 use App\Models\PneumaticPairData;
+use App\Models\RawData;
 use App\Models\Device;
   
 class PneumaticDataController extends Controller
@@ -171,7 +172,20 @@ class PneumaticDataController extends Controller
     
                         ];
                         $pneumatic_data->save($data);
-                        
+                        if($pneumatic_data->getInsertID()){
+                            $pair_data_id = $pneumatic_data->getInsertID();
+                            $raw_data = new RawData();
+                            $data = [
+                                'pair_data_id'     => $pair_data_id,
+                                'lt'     => json_encode($this->request->getVar('LT_RAW')),
+                                'lm'     => json_encode($this->request->getVar('LM_RAW')),
+                                'lb'     => json_encode($this->request->getVar('LB_RAW')),
+                                'rt'     => json_encode($this->request->getVar('RT_RAW')),
+                                'rm'     => json_encode($this->request->getVar('RM_RAW')),
+                                'rb'     => json_encode($this->request->getVar('RB_RAW'))
+                            ];
+                            $raw_data->save($data);
+                        }
                         // if($this->request->getVar('LStatus') == 0 || $this->request->getVar('RStatus') == 0){
                         //     $status = 2;
                         // }
