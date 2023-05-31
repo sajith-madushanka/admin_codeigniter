@@ -254,7 +254,7 @@ class DashboardController extends Controller
            
         
         if($raw){
-            $csvData = "left top,left middle,left bottom,right top,right middle,right bottom";
+            $csvData = "left top,left middle,left bottom,right top,right middle,right bottom\n";
             $lt = json_decode($raw->lt);
             $lm = json_decode($raw->lm);
             $lb = json_decode($raw->lb);
