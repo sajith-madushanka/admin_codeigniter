@@ -152,12 +152,14 @@ $(document).on('click','.pagination a',function(e) {
     // Load pagination
     e.preventDefault();
     page = e.target.innerText;
-    tt = e.target;
-    var $span3 = $(this).closest('a');
-
-    console.log($span3);
-    console.log(tt);
-    load_data(e.target.innerText,$('#search').val(),start_date,end_date);
+    const conv = +page;
+    if (conv) {
+        load_data(e.target.innerText,$('#search').val(),start_date,end_date);
+    } else {
+        const element = document.querySelector('[aria-label="'+page+'"]');
+        const page_no = element.getAttribute("href").split("=")[1]
+        load_data(page_no,$('#search').val(),start_date,end_date);
+    }
 });
 
 $(document).on('input','#search',function(e) {
