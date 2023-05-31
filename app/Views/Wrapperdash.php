@@ -157,7 +157,7 @@ $(document).on('click','.pagination a',function(e) {
         load_data(e.target.innerText,$('#search').val(),start_date,end_date);
     } else {
         const element = document.querySelector('[aria-label="'+page+'"]');
-        const page = element.getAttribute("href").split("=")[1]
+        page = element.getAttribute("href").split("=")[1]
         load_data(page,$('#search').val(),start_date,end_date);
     }
 });
