@@ -50,6 +50,8 @@ require_once SYSTEMPATH . 'Config/DotEnv.php';
  * the application run, and does all of the dirty work to get
  * the pieces all working together.
  */
+helper('string');
+helper('inflector');
 
 $app = Config\Services::codeigniter();
 $app->initialize();

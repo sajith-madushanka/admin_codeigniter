@@ -38,6 +38,7 @@
                 </div>
             </div> 
         </div>
+       
         <div id="pcoded" class="pcoded">
             <div class="pcoded-overlay-box"></div>
                 <div class="pcoded-container navbar-wrapper">
@@ -97,6 +98,55 @@
                             </div>
                         </div>
                     </nav>
+                    <!-- remark popup -->
+                    <button style="display:none" id="remark" href="#rmModal" class="trigger-btn" data-toggle="modal"></button>
+                    <div id="rmModal" class="modal fade">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content">
+                                <div class="modal-header flex-column">
+                                    <div class="icon-box" style="border: 3px solid #93BE52" >
+                                        <i style="color: #93BE52;" class="ti-pencil-alt"></i>
+                                    </div>
+                                    <h4 class="modal-title w-100">Please select the remark.</h4>
+                                    <button type="button" id="close_del" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="optionbox">
+                                    <select id="remark_select"> 
+                                        <option value="No presure">No presure</option>
+                                        <option value="Valve damage">Valve damage</option>
+                                        <option value="Dropped">Dropped</option>
+                                        <option value="sdddd">sdddd</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" style="background:#93BE52;" class="btn btn-danger"  onclick="remark_popup()">ADD</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- delete popup -->
+                    <button style="display:none" id="del" href="#myModal" class="trigger-btn" data-toggle="modal"></button>
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content">
+                                <div class="modal-header flex-column">
+                                    <div class="icon-box">
+                                        <i class="ti-trash"></i>
+                                    </div>
+                                    <h4 class="modal-title w-100">Are you sure?</h4>
+                                    <button type="button" id="close_del" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-danger"  onclick="delete_data_popup()">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <?= $this->renderSection('content')?>
                 </div>
             </div>
@@ -125,6 +175,9 @@ var $window = $(window);
 var start_date = '';
 var end_date = '';
 var page = 1;
+var pair_del = "";
+var data_del = "";
+var export_ids = [];
 var nav = $('.fixed-button');
     $window.scroll(function(){
         if ($window.scrollTop() >= 200) {
@@ -226,6 +279,58 @@ $(document).on('click','#back',function() {
     load_data(page,$('#search').val(),start_date,end_date);
 });
 
+$(document).on('change','#export_check',function(e) {
+     if(this.checked) {
+        export_ids.push(e.target.value);
+    }
+    else{
+        export_ids = export_ids.filter(arrayItem => arrayItem !== e.target.value);
+    }
+
+    if(export_ids.length >= 1){
+        $('#row_data_down').show();
+    }
+    else{
+        $('#row_data_down').hide();
+    }
+});
+
+$(document).on('click','#row_data_down',function() {
+
+    console.log(export_ids);
+    $.ajax({
+        url: '<?php echo base_url(); ?>export_raw_data_array',
+        type: 'POST',
+        data: {
+            ids: export_ids
+        },
+        dataType: 'json',
+        
+        
+        success: function (data) {
+            if(data){
+                // Create a Blob with the CSV data
+                // console.log(data);
+                var blob = new Blob([data], {type: 'text/csv'});
+
+                // Create a temporary link element
+                var link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'raw_data_bulk.csv';// Set the download file name
+                link.click();
+
+                // Clean up
+                URL.revokeObjectURL(link.href);
+                link.remove();
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+        
+    });
+});
+
 function load_data(page,keyword,start,end) {
     // Send AJAX request
     $.ajax({
@@ -249,9 +354,12 @@ function load_data(page,keyword,start,end) {
             $('#date_data').show();
             $('#date').show();
             $('.download_csv').show();
+            $('#row_data_button').show();
             $('#D_table').html(response.table_data);
             $('#pagination').html(response.links);
             $('#date_data').html(response.summary);
+            $('#row_data_down').hide();
+            export_ids = [];
         }
     });
 }
@@ -273,19 +381,22 @@ function pair_Data(id) {
             $('#date_data').hide();
             $('#back').show();
             $('#head').hide();
+            $('#row_data_button').hide();
             $('#D_table').html(response.table_data);
             $('#pagination').html('');
+            $('#row_data_down').hide();
+            export_ids = [];
         }
     });
 }
 
-function raw_data(id) {
-    console.log(id);
+function raw_data(id,pair_id) {
     $.ajax({
         url: '<?php echo base_url(); ?>export_raw_data',
         type: 'POST',
         data: {
-            id: id
+            id: id,
+            pair_id:pair_id
         },
         dataType: 'json',
         
@@ -315,24 +426,62 @@ function raw_data(id) {
        
 }
 
-function delete_data(id) {
+function delete_data(id,data_id) {
+    pair_del = id;
+    data_del = data_id;
+    document.getElementById('del').click();
+}
+
+function delete_data_popup() {
+   
     $.ajax({
         url: '<?php echo base_url(); ?>delete_data',
         type: 'POST',
         data: {
-            id:id
+            id:pair_del,
+            data_id:data_del
         },
         dataType: 'json',
         
         success: function(response) {
-            // Update table data
-            console.log(response.deleted);
+            document.getElementById('close_del').click();
             if(response.deleted == 1){
+                pair_Data(pair_del);
+            }
+            else if(response.deleted == 2){
                 load_data(page,$('#search').val(),start_date,end_date);
             }
             
         }
     });
+}
+
+function remark(id) {
+    remark_id = id;
+    document.getElementById('remark').click();
+}
+
+function remark_popup() {
+   
+    var e = document.getElementById("remark_select");
+    var value = e.value;
+   $.ajax({
+       url: '<?php echo base_url(); ?>remark_data',
+       type: 'POST',
+       data: {
+           id:remark_id,
+           value:value
+       },
+       dataType: 'json',
+       
+       success: function(response) {
+           document.getElementById('close_del').click();
+           if(response.remarked == 1){
+                pair_Data($('#pair').val());
+           }
+           
+       }
+   });
 }
 
 function pin_data(id,status) {

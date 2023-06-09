@@ -60,6 +60,7 @@
                                         <!-- Bootstrap tab card start -->
                                         <div class="card">
                                             <div class="card-header">
+                                                
                                             <div  id="back"><i  class="ti-arrow-left" style="padding-right: 1%;"></i><h5>Pneumatic data</h5></div>
                                                 <h5 id="head">Pneumatic Tester dashboard</h5>
                                                 <div class="row">
@@ -81,9 +82,16 @@
                                                     <table id="D_table" class="table table-hover">
                                                             <!-- table from backend -->
                                                     </table>
-                                                    <div id="pagination" class="pagination_tab d-flex justify-content-center">
-                                                            <!-- pagination from backend -->
+                                                    <div class="row" style="margin-left: 0px;margin-right:0px;">
+                                                        <div id="pagination" class=" col-sm-10 pagination_tab d-flex justify-content-center">
+                                                                <!-- pagination from backend -->
+                                                                
+                                                        </div>
+                                                        <div id="row_data_button" style="text-align: right;" class=" col-sm-2 justify-content-right">
+                                                            <button id="row_data_down"  class="btn btn-info btn-sm btn-round">Export Row Datas</button>  
+                                                        </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>

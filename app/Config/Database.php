@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'      => '',
         'hostname' => 'localhost',
         'username' => 'root',
-        'password' => 'root@123',
+        'password' => '',
         'database' => 'admin_panel',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
@@ -41,7 +41,7 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => 3376,
+        'port'     => 3306,
     ];
 
     /**

@@ -45,6 +45,11 @@ class PneumaticPairData extends Migration
             'date_time' => [
                 'type' => 'DATETIME'
             ],
+            'remarks' => [
+                'type' => 'VARCHAR',
+                'constraint' => '1000',
+                'default' => null,
+            ],
             'created_at datetime default current_timestamp',
         ]);
         $this->forge->addPrimaryKey('id');

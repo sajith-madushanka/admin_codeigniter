@@ -18,4 +18,10 @@ class PneumaticPair extends Model{
         'pinned'
     ];
 
+    public function pair_data()
+    {
+        return $this->hasMany('pair_data', 'App\Models\PneumaticPairData','pair_id');
+        // $this->hasMany('propertyName', 'model', 'foreign_key', 'local_key');
+    }
+
 }

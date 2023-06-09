@@ -16,7 +16,8 @@ class PneumaticPairData extends Model{
         'rb',
         'left_status',
         'right_status',
-        'date_time'
+        'date_time',
+        'remarks'
     ];
 
 }

@@ -95,6 +95,7 @@ class DashboardController extends Controller
             $data =  $pneumatic_pair->orderBy('pinned', 'desc')->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
         }
         $links = $pager->makeLinks($page,$limit,$rows);
+        $pneumatic_pair_data = new PneumaticPairData();
         $table_data ='<thead>
                         <tr>
                             <th>#</th>
@@ -118,7 +119,12 @@ class DashboardController extends Controller
                             
         foreach ($data as  $row) {
             $table_data .= '<tr>';
-            $table_data .= '<th onclick=pair_Data('.$row->id.')>' . $row->id . '</th>';
+            if($pneumatic_pair_data->where('pair_id',$row->id)->countAllResults()>1){
+                $table_data .= '<th style="color:#FFB64D" onclick=pair_Data('.$row->id.')>' . $row->id . '</th>';
+            }
+            else{
+                $table_data .= '<th onclick=pair_Data('.$row->id.')>' . $row->id . '</th>';
+            }
             $table_data .= '<td onclick=pair_Data('.$row->id.') style="font-size: 13px">' . $row->left_rfid . '</td>';
             $table_data .= '<td onclick=pair_Data('.$row->id.') style="font-size: 13px">' . $row->right_rfid . '</td>';
             if($row->pair_status == 2){
@@ -147,13 +153,14 @@ class DashboardController extends Controller
             }
             $table_data .= '<td onclick=pair_Data('.$row->id.')><p class="text-muted ">'.$row->device.'</p></td>';
             if($session->get('is_super')==1){
-                $table_data .= '<td><button style="width:65px;height:25px;font-size:10px;padding: 0px 5px" onclick=delete_data('.$row->id.') class="btn btn-danger btn-sm btn-round">Delete</button>';
+                $table_data .= '<td style="display:inline-flex">';
                 if($row->pinned == 0){
-                    $table_data .='<i style="padding:0px 0px 0px 10px;"  onclick=pin_data('.$row->id.',1)  class="ti-star"></i></td>';
+                    $table_data .='<i  onclick=pin_data('.$row->id.',1)  class="ti-star"></i>';
                 }
                 else{
-                    $table_data .='<i style="padding:0px 0px 0px 10px; color:gold" onclick=pin_data('.$row->id.',0) class="ti-star"></i></td>';
+                    $table_data .='<i  style="color:gold" onclick=pin_data('.$row->id.',0) class="ti-star"></i>';
                 }
+                $table_data .= '<input value = "'.$row->id.'" id="export_check" style="margin-left: 10px;" type="checkbox" name="checkbox" /></td>';
             }
             $table_data .= '</tr>';
         }
@@ -248,13 +255,18 @@ class DashboardController extends Controller
         
         try{
            
-            $data = new RawData();
+           $data = new RawData();
            $raw =  $data->where('pair_data_id',$this->request->getPost('id'))->get()->getResult();
            $raw = $raw[0];
+
+           $pair = new PneumaticPair();
+           $rfids =  $pair->find($this->request->getPost('pair_id'));
            
+           $pair_data = new PneumaticPairData();
+           $pair_data =  $pair_data->find($this->request->getPost('id'));
         
         if($raw){
-            $csvData = "left top,left middle,left bottom,right top,right middle,right bottom\n";
+            $csvData = "pair id,left rfid,right rfid,date time,left top,left middle,left bottom,right top,right middle,right bottom\n";
             $lt = json_decode($raw->lt);
             $lm = json_decode($raw->lm);
             $lb = json_decode($raw->lb);
@@ -263,7 +275,12 @@ class DashboardController extends Controller
             $rb = json_decode($raw->rb);
 
             for($i=0;$i<480;$i++){
-                $csvData .= "".$lt[$i].",".$lm[$i].",".$lb[$i].",".$rt[$i].",".$rm[$i].",".$rb[$i]."\n";
+                if($i==0){
+                    $csvData .= "".$rfids['id'].",".$rfids['left_rfid'].",".$rfids['right_rfid'].",".$pair_data['date_time'].",".$lt[$i].",".$lm[$i].",".$lb[$i].",".$rt[$i].",".$rm[$i].",".$rb[$i]."\n";
+                }
+                else{
+                    $csvData .= " , , , ,".$lt[$i].",".$lm[$i].",".$lb[$i].",".$rt[$i].",".$rm[$i].",".$rb[$i]."\n";
+                }
             }
             
             $csvData = json_encode($csvData);
@@ -280,6 +297,79 @@ class DashboardController extends Controller
         }
         
 
+        } catch (\Throwable $e) {
+            return $this->respond($e->getMessage());
+        }
+    }
+
+    public function exportRawDataArray()
+    {
+        
+        try{
+           $ids = $this->request->getPost('ids');
+           
+           $count = 0;
+           foreach($ids as $id){
+                $pair_data = new PneumaticPairData();
+                ${"pair_data".$id} =  $pair_data->where('pair_id',$id)->orderBy('date_time','desc')->first();
+                $data = new RawData();
+                $raw =  $data->where('pair_data_id',${"pair_data".$id}['id'])->get()->getResult();
+                if($raw){
+                    $count++;
+                    ${"raw".$id} = $raw[0];
+                    ${"lt".$id} = json_decode($raw[0]->lt);
+                    ${"lm".$id} = json_decode($raw[0]->lm);
+                    ${"lb".$id} = json_decode($raw[0]->lb);
+                    ${"rt".$id} = json_decode($raw[0]->rt);
+                    ${"rm".$id} = json_decode($raw[0]->rm);
+                    ${"rb".$id} = json_decode($raw[0]->rb);
+
+                    $pair = new PneumaticPair();
+                    ${"rfids".$id} =  $pair->find($id);
+                }
+                else{
+                    ${"raw".$id} = null;
+                }
+           }
+
+           if($count > 0){
+
+                $csvData ="";
+                for($i=0;$i<$count;$i++){
+                    if($i!=0){
+                        $csvData .= " , ,";
+                    }
+                    $csvData .= "pair id,left rfid,right rfid,date time,left top,left middle,left bottom,right top,right middle,right bottom";
+                }
+                $csvData .="\n";
+
+                for($i=0;$i<480;$i++){
+                    foreach($ids as $id){
+                        if(${"raw".$id} != null){
+                            if($i==0){
+                                $csvData .= "".${"rfids".$id}['id'].",".${"rfids".$id}['left_rfid'].",".${"rfids".$id}['right_rfid'].",".${"pair_data".$id}['date_time'].",".${"lt".$id}[$i].",".${"lm".$id}[$i].",".${"lb".$id}[$i].",".${"rt".$id}[$i].",".${"rm".$id}[$i].",".${"rb".$id}[$i]." , ,";
+                            }
+                            else{
+                                $csvData .= " , , , ,".${"lt".$id}[$i].",".${"lm".$id}[$i].",".${"lb".$id}[$i].",".${"rt".$id}[$i].",".${"rm".$id}[$i].",".${"rb".$id}[$i]." , ,";
+                            }
+                        } 
+                    }
+                    $csvData .="\n";
+                }
+           }
+           
+            
+            $csvData = json_encode($csvData);
+            // Set the response headers for CSV download
+            $filename = 'raw_Data.csv';
+            header("Content-type: text/csv");
+            header("Content-Disposition: attachment; filename=$filename");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+        
+            // Output the CSV data
+            echo $csvData;
+            exit;
         } catch (\Throwable $e) {
             return $this->respond($e->getMessage());
         }
@@ -318,9 +408,11 @@ class DashboardController extends Controller
                         </tr>
                     </thead>
                     <tbody>';
+        $char = 'a';
         foreach ($data as  $row) {
             $table_data .= '<tr >';
-            $table_data .= '<th>' . $row->id . '</th>';
+            $table_data .= '<th>' . $this->request->getPost('id') .' '.$char. '.</th>';
+            $char++;
             $table_data .= '<td>LT</td>';
             $lt = json_decode($row->lt);
             if(25.5 <= $lt->HP1 &&  $lt->HP1 <= 32.5){
@@ -505,7 +597,7 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td class="text-c-pink">' . $lt->LP10 . '</td>';
             }
-            $table_data .= '<td rowspan="2"><p class="text-muted ">'.$row->date_time.'</p><button style="width:100px;height:30px" onclick=raw_data('.$row->id.') class="btn btn-info btn-sm btn-round">Raw Data</button></td>';
+            $table_data .= '<td ><p style="margin-bottom:0px" class="text-muted ">'.$row->date_time.'</p></td>';
             $table_data .= '</tr >';
             $table_data .= '<tr >';
             $table_data .= '<th> </th>';
@@ -693,7 +785,7 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td class="text-c-pink">' . $lm->LP10 . '</td>';
             }
-            $table_data .= '<td></td>';
+            $table_data .= '<td><button style="width:100px;height:30px"  onclick=delete_data('.$this->request->getPost('id').','.$row->id.') class="btn btn-danger btn-sm btn-round">Delete</button></td>';
             $table_data .= '</tr >';
             $table_data .= '<tr >';
             $table_data .= '<th> </th>';
@@ -881,7 +973,7 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td class="text-c-pink">' . $lb->LP10 . '</td>';
             }
-            $table_data .= '<td></td>';
+            $table_data .= '<td><button style="width:100px;height:30px" onclick=raw_data('.$row->id.','.$this->request->getPost('id').') class="btn btn-info btn-sm btn-round">Row Data</button></td>';
             $table_data .= '</tr >';
             $table_data .= '<tr >';
             $table_data .= '<th> </th>';
@@ -1069,7 +1161,7 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td class="text-c-pink">' . $rt->LP10 . '</td>';
             }
-            $table_data .= '<td></td>';
+            $table_data .= '<td><button style="width:100px;height:30px"  onclick=remark('.$row->id.') class="btn btn-success btn-sm btn-round">Remark</button></td>';
             $table_data .= '</tr >';
             $table_data .= '<tr >';
             $table_data .= '<th> </th>';
@@ -1258,7 +1350,7 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP10 . '</td>';
             }
-            $table_data .= '<td></td>';
+            $table_data .= '<td style="text-align:center;font-size:11px">' . $row->remarks . '</td>';
             $table_data .= '</tr >';
             $table_data .= '<tr >';
             $table_data .= '<th> </th>';
@@ -1468,21 +1560,48 @@ class DashboardController extends Controller
         $session = session();
         if($session->get('is_super')==1){
             $id = $this->request->getPost('id');
-       
-        
-            $pneumatic_pair = new PneumaticPair();
-            $pneumatic_pair->where('id',$id)->delete();
-    
+            $data_id = $this->request->getPost('data_id');
+
             $pneumatic_pair_data = new PneumaticPairData();
-            $pneumatic_pair_data->where('pair_id',$id)->delete();
-           
-            
+            $count = $pneumatic_pair_data->where('pair_id',$id)->countAllResults();
+            $pneumatic_pair_data->where('id',$data_id)->delete();
+            if($count == 1){
+                $pneumatic_pair = new PneumaticPair();
+                $pneumatic_pair->where('id',$id)->delete();
+                return $this->response->setJSON([
+                    'deleted' => 2
+                ]);
+            }
             return $this->response->setJSON([
                 'deleted' => 1
             ]);
         }
         return $this->response->setJSON([
             'deleted' => 0
+        ]);
+       
+        } catch (\Throwable $e) {
+            return $this->respond($e->getMessage());
+        }
+    }
+
+    public function remarkData()
+    {
+        
+        try{
+        $session = session();
+        if($session->get('is_super')==1){
+            $id = $this->request->getPost('id');
+            $remark = $this->request->getPost('value');
+
+            $pneumatic_pair_data = new PneumaticPairData();
+            $pneumatic_pair_data->update($id,['remarks'		=>  $remark]);
+            return $this->response->setJSON([
+                'remarked' => 1
+            ]);
+        }
+        return $this->response->setJSON([
+            'remarked' => 0
         ]);
        
         } catch (\Throwable $e) {
