@@ -14,6 +14,13 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
+                        <li class="active">
+                            <a href="/battery">
+                                <span class="pcoded-micon"><i class="ti-plug"></i><b>D</b></span>
+                                <span class="pcoded-mtext" data-i18n="nav.dash.main">Battery Voltage</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms"><?php echo $date;?> Update</div>
                     <ul class="pcoded-item pcoded-left-item">
@@ -75,7 +82,7 @@
                                                         <input id="date" class="form-control" type="text" name="daterange"/>
                                                     </div>
                                                 </div>
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i><i class="icofont icofont-rounded-down download_csv"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i><i class="icofont icofont-rounded-down download_csv"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card refresh_data"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                             </div>
                                             <div class="card-block table-border-style">
                                                 <div  class="table-responsive">

@@ -175,6 +175,7 @@ var $window = $(window);
 var start_date = '';
 var end_date = '';
 var page = 1;
+var b_page = 1;
 var pair_del = "";
 var data_del = "";
 var export_ids = [];
@@ -199,21 +200,42 @@ var nav = $('.fixed-button');
 });
 
  $(document).ready(function() {
-    load_data(1);
+    if(window.location.pathname == "/battery"){
+        load_battery_data(1);
+    }
+    else{
+        load_data(1);
+    }
 });
 $(document).on('click','.pagination a',function(e) {
     // Load pagination
-    e.preventDefault();
-    page = e.target.innerText;
-    const conv = +page;
-    if (conv) {
-        load_data(e.target.innerText,$('#search').val(),start_date,end_date);
-    } else {
-        const element = document.querySelector('[aria-label="'+page+'"]');
-        page = element.getAttribute("href").split("=")[1]
-        load_data(page,$('#search').val(),start_date,end_date);
+    if(window.location.pathname == "/battery"){
+        e.preventDefault();
+        b_page = e.target.innerText;
+        const conv = +b_page;
+        if (conv) {
+            load_battery_data(e.target.innerText,$('#B_search').val());
+        } else {
+            const element = document.querySelector('[aria-label="'+b_page+'"]');
+            b_page = element.getAttribute("href").split("=")[1]
+            load_battery_data(b_page,$('#B_search').val());
+        }
     }
+    else{
+        e.preventDefault();
+        page = e.target.innerText;
+        const conv = +page;
+        if (conv) {
+            load_data(e.target.innerText,$('#search').val(),start_date,end_date);
+        } else {
+            const element = document.querySelector('[aria-label="'+page+'"]');
+            page = element.getAttribute("href").split("=")[1]
+            load_data(page,$('#search').val(),start_date,end_date);
+        }
+    }
+   
 });
+
 
 $(document).on('input','#search',function(e) {
     start_date = '';
@@ -223,13 +245,22 @@ $(document).on('input','#search',function(e) {
     load_data(1,e.target.value);
 });
 
-$(document).on('click','.icofont-refresh',function() {
+$(document).on('input','#B_search',function(e) {
+    load_battery_data(1,e.target.value);
+});
+
+$(document).on('click','.refresh_data',function() {
      if($("#search").is(":visible")){
         load_data(1);
      }
      else{
         pair_Data($('#pair').val());
      } 
+});
+
+$(document).on('click','.refresh_data_b',function() {
+    load_battery_data(1);
+     
 });
 
 
@@ -364,30 +395,53 @@ function load_data(page,keyword,start,end) {
     });
 }
 
-function pair_Data(id) {
+function load_battery_data(page,keyword) {
+    // Send AJAX request
     $.ajax({
-        url: '<?php echo base_url(); ?>pair_data',
+        url: '<?php echo base_url(); ?>get_battery_data',
         type: 'POST',
         data: {
-            id:id
+            page: page,
+            keyword: keyword
         },
         dataType: 'json',
         
         success: function(response) {
-            // Update table data
-            $('#search').hide();
-            $('.download_csv').hide();
-            $('#date').hide();
-            $('#date_data').hide();
-            $('#back').show();
-            $('#head').hide();
-            $('#row_data_button').hide();
-            $('#D_table').html(response.table_data);
-            $('#pagination').html('');
-            $('#row_data_down').hide();
-            export_ids = [];
+            console.log(response);
+            $('#B_table').html(response.table_data);
+            $('#B_pagination').html(response.links);
         }
     });
+}
+
+function pair_Data(id) {
+    const varsuper = '<?php echo session('is_super');?>';
+    if( varsuper == 1){
+        $.ajax({
+            url: '<?php echo base_url(); ?>pair_data',
+            type: 'POST',
+            data: {
+                id:id
+            },
+            dataType: 'json',
+        
+            success: function(response) {
+                // Update table data
+                $('#search').hide();
+                $('.download_csv').hide();
+                $('#date').hide();
+                $('#date_data').hide();
+                $('#back').show();
+                $('#head').hide();
+                $('#row_data_button').hide();
+                $('#D_table').html(response.table_data);
+                $('#pagination').html('');
+                $('#row_data_down').hide();
+                export_ids = [];
+            }
+        });
+    }
+   
 }
 
 function raw_data(id,pair_id) {

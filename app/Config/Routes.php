@@ -30,9 +30,9 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 //$routes->get('/', 'Home::index');
-
-
 $routes->get('/', 'App\DashboardController::index',['filter' => 'authGuard']);
+$routes->get('/battery', 'App\BatteryDataController::index',['filter' => 'authGuard']);
+
 $routes->post('/get_data', 'App\DashboardController::getData',['filter' => 'authGuard']);
 $routes->post('/export_data', 'App\DashboardController::exportData',['filter' => 'authGuard']);
 $routes->post('/export_raw_data', 'App\DashboardController::exportRawData',['filter' => 'authGuard']);
@@ -41,6 +41,9 @@ $routes->post('/pair_data', 'App\DashboardController::pairData',['filter' => 'au
 $routes->post('/delete_data', 'App\DashboardController::deleteData',['filter' => 'authGuard']);
 $routes->post('/remark_data', 'App\DashboardController::remarkData',['filter' => 'authGuard']);
 $routes->post('/pin_data', 'App\DashboardController::pinData',['filter' => 'authGuard']);
+
+$routes->post('/get_battery_data', 'App\BatteryDataController::getBatteryData',['filter' => 'authGuard']);
+
 
 $routes->get('/signup', 'Auth\SignupController::index');
 $routes->get('/signin', 'Auth\SigninController::index');
@@ -65,6 +68,8 @@ $routes->match(['get', 'post'], 'SigninController/login', 'Auth\SigninController
  $routes->post('/api/pneumatic_data', 'Api\PneumaticDataController::pneumaticData');
  $routes->post('/api/pneumatic_data_final', 'Api\PneumaticDataController::pneumaticData_final');
  $routes->post('/api/heart_beat', 'Api\PneumaticDataController::heartBeat');
+
+ $routes->post('/api/battery_data', 'Api\BatteryDataController::batteryData');
 
  $routes->post('/api/upload_file', 'Api\PneumaticDataController::uploadFile');
  $routes->get('/api/download', 'Api\PneumaticDataController::showFile');

@@ -13,6 +13,11 @@ class PneumaticPair extends Migration
                 'type' => 'INT',
                 'auto_increment' => TRUE
             ],
+            'dev_id' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'default' => null,
+            ],
             'left_rfid' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
