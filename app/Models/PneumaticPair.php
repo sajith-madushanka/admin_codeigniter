@@ -8,6 +8,7 @@ class PneumaticPair extends Model{
 	protected $table = 'pneumatic_pair';
     protected $primaryKey = 'id';
 	protected $allowedFields = [
+        'dev_id',
         'left_rfid',
         'right_rfid',
         'pair_status',

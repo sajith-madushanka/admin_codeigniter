@@ -85,9 +85,9 @@ class DashboardController extends Controller
                                 </div>';
         }
         else if (!empty($filter)) {
-            $pneumatic_pair->like('id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
+            $pneumatic_pair->like('dev_id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
             $rows = $pneumatic_pair->countAllResults();
-            $pneumatic_pair->like('id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
+            $pneumatic_pair->like('dev_id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
             $data =  $pneumatic_pair->orderBy('pinned', 'desc')->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
         }
         else{
@@ -120,10 +120,21 @@ class DashboardController extends Controller
         foreach ($data as  $row) {
             $table_data .= '<tr>';
             if($pneumatic_pair_data->where('pair_id',$row->id)->countAllResults()>1){
-                $table_data .= '<th style="color:#FFB64D" onclick=pair_Data('.$row->id.')>' . $row->id . '</th>';
+                if($row->dev_id){
+                    $table_data .= '<th style="color:#FFB64D" onclick=pair_Data('.$row->id.')>' . $row->dev_id . '</th>';
+                }
+                else{
+                    $table_data .= '<th style="color:#FFB64D" onclick=pair_Data('.$row->id.')>' . $row->id . '</th>';
+                } 
             }
             else{
-                $table_data .= '<th onclick=pair_Data('.$row->id.')>' . $row->id . '</th>';
+                if($row->dev_id){
+                    $table_data .= '<th onclick=pair_Data('.$row->id.')>'.$row->dev_id .'</th>';
+                }
+                else{
+                    $table_data .= '<th onclick=pair_Data('.$row->id.')>'.$row->id .'</th>';
+                }
+               
             }
             $table_data .= '<td onclick=pair_Data('.$row->id.') style="font-size: 13px">' . $row->left_rfid . '</td>';
             $table_data .= '<td onclick=pair_Data('.$row->id.') style="font-size: 13px">' . $row->right_rfid . '</td>';
@@ -378,6 +389,8 @@ class DashboardController extends Controller
     public function pairData()
     {
         try{
+        $pneumatic_pair = new PneumaticPair();
+        $pair_data =  $pneumatic_pair->find($this->request->getPost('id'));
         $pneumatic_pair_data = new PneumaticPairData();
         $data =  $pneumatic_pair_data->where('pair_id', $this->request->getPost('id'))->orderBy('date_time','desc')->get()->getResult();
         $table_data ='<input type="hidden" id="pair" value="'.$this->request->getPost('id').'" /><thead>
@@ -411,7 +424,13 @@ class DashboardController extends Controller
         $char = 'a';
         foreach ($data as  $row) {
             $table_data .= '<tr >';
-            $table_data .= '<th>' . $this->request->getPost('id') .' '.$char. '.</th>';
+            if($pair_data['dev_id']){
+                $table_data .= '<th>' . $pair_data['dev_id'] .' '.$char. '.</th>';
+            }
+            else{
+                $table_data .= '<th>' . $this->request->getPost('id') .' '.$char. '.</th>';
+            }
+            
             $char++;
             $table_data .= '<td>LT</td>';
             $lt = json_decode($row->lt);

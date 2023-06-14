@@ -14,6 +14,7 @@ class PneumaticDataController extends Controller
     public function pneumaticData()
     {  
         $rules = [
+            'devID'     => 'required',
             'LRFID'          => 'required',
             'RRFID'         => 'required',
             'UNIX'      => 'required'
@@ -47,6 +48,7 @@ class PneumaticDataController extends Controller
                                 $status = 1;
                             }
                             $data = [
+                                'dev_id'     => $this->request->getVar('devID'),
                                 'left_rfid'     => $this->request->getVar('LRFID'),
                                 'right_rfid'     => $this->request->getVar('RRFID'),
                                 'updated_at'		=>  date("Y-m-d H:i:s", now("Asia/Shanghai")),
@@ -186,12 +188,6 @@ class PneumaticDataController extends Controller
                             ];
                             $raw_data->save($data);
                         }
-                        // if($this->request->getVar('LStatus') == 0 || $this->request->getVar('RStatus') == 0){
-                        //     $status = 2;
-                        // }
-                        // else{
-                        //     $status = 1;
-                        // }
 
                         $data2 = [
                             'updated_at'		=>  date("Y-m-d H:i:s", $this->request->getVar('UNIX')),
