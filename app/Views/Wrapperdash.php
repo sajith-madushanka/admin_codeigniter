@@ -112,10 +112,9 @@
                                 </div>
                                 <div class="optionbox">
                                     <select id="remark_select"> 
-                                        <option value="No presure">No presure</option>
-                                        <option value="Valve damage">Valve damage</option>
-                                        <option value="Dropped">Dropped</option>
-                                        <option value="sdddd">sdddd</option>
+                                        <option value="No Presure Active">No Presure Active</option>
+                                        <option value="Valve Damage">Valve Damage</option>
+                                        <option value="Electric Fail">Electric Fail</option>
                                     </select>
                                 </div>
                                 <div class="modal-footer justify-content-center">
