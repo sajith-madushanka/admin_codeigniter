@@ -1389,7 +1389,7 @@ class DashboardController extends Controller
             else{
                 $table_data .= '<td class="text-c-pink">' . $rm->LP10 . '</td>';
             }
-            $table_data .= '<td style="text-align:center;font-size:11px">' . $row->remarks . '</td>';
+            $table_data .= '<td style="padding-left: 22px;font-size:11px">' . $row->remarks . '</td>';
             $table_data .= '</tr >';
             $table_data .= '<tr >';
             $table_data .= '<th> </th>';
