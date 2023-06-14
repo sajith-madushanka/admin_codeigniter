@@ -201,7 +201,7 @@ class DashboardController extends Controller
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
         }
         else if (!empty($filter)) {
-            $pneumatic_pair->like('id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
+            $pneumatic_pair->like('dev_id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
             $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
         }
         else{
@@ -215,6 +215,12 @@ class DashboardController extends Controller
                 }
                 else{
                     $pneumatic_test = "fail" ;
+                }
+                if($row->dev_id){
+                    $id = $row->dev_id;
+                }
+                else{
+                    $id = $row->id;
                 }
                 if($row->final_status == 1){
                     $final_test = "matched" ;  
@@ -239,7 +245,7 @@ class DashboardController extends Controller
                 }
                
                
-                $csvData .= "".$row->id.",".$row->left_rfid.",".$row->right_rfid.",".$pneumatic_test.",".$row->updated_at.",".$final_test.",".$final_date.",".$overall.",".$row->device."\n";
+                $csvData .= "".$id.",".$row->left_rfid.",".$row->right_rfid.",".$pneumatic_test.",".$row->updated_at.",".$final_test.",".$final_date.",".$overall.",".$row->device."\n";
             }
             
             $csvData = json_encode($csvData);
@@ -272,6 +278,13 @@ class DashboardController extends Controller
 
            $pair = new PneumaticPair();
            $rfids =  $pair->find($this->request->getPost('pair_id'));
+
+           if($rfids['dev_id']){
+                $id = $rfids['dev_id'];
+            }
+            else{
+                $id = $rfids['id'];
+            }
            
            $pair_data = new PneumaticPairData();
            $pair_data =  $pair_data->find($this->request->getPost('id'));
@@ -287,7 +300,7 @@ class DashboardController extends Controller
 
             for($i=0;$i<480;$i++){
                 if($i==0){
-                    $csvData .= "".$rfids['id'].",".$rfids['left_rfid'].",".$rfids['right_rfid'].",".$pair_data['date_time'].",".$lt[$i].",".$lm[$i].",".$lb[$i].",".$rt[$i].",".$rm[$i].",".$rb[$i]."\n";
+                    $csvData .= "".$id.",".$rfids['left_rfid'].",".$rfids['right_rfid'].",".$pair_data['date_time'].",".$lt[$i].",".$lm[$i].",".$lb[$i].",".$rt[$i].",".$rm[$i].",".$rb[$i]."\n";
                 }
                 else{
                     $csvData .= " , , , ,".$lt[$i].",".$lm[$i].",".$lb[$i].",".$rt[$i].",".$rm[$i].",".$rb[$i]."\n";
@@ -357,8 +370,15 @@ class DashboardController extends Controller
                 for($i=0;$i<480;$i++){
                     foreach($ids as $id){
                         if(${"raw".$id} != null){
+                            if(${"rfids".$id}['dev_id']){
+
+                                $new_id =${"rfids".$id}['dev_id'];
+                            }
+                            else{
+                                $new_id = ${"rfids".$id}['id'];
+                            }
                             if($i==0){
-                                $csvData .= "".${"rfids".$id}['id'].",".${"rfids".$id}['left_rfid'].",".${"rfids".$id}['right_rfid'].",".${"pair_data".$id}['date_time'].",".${"lt".$id}[$i].",".${"lm".$id}[$i].",".${"lb".$id}[$i].",".${"rt".$id}[$i].",".${"rm".$id}[$i].",".${"rb".$id}[$i]." , ,";
+                                $csvData .= "".$new_id.",".${"rfids".$id}['left_rfid'].",".${"rfids".$id}['right_rfid'].",".${"pair_data".$id}['date_time'].",".${"lt".$id}[$i].",".${"lm".$id}[$i].",".${"lb".$id}[$i].",".${"rt".$id}[$i].",".${"rm".$id}[$i].",".${"rb".$id}[$i]." , ,";
                             }
                             else{
                                 $csvData .= " , , , ,".${"lt".$id}[$i].",".${"lm".$id}[$i].",".${"lb".$id}[$i].",".${"rt".$id}[$i].",".${"rm".$id}[$i].",".${"rb".$id}[$i]." , ,";

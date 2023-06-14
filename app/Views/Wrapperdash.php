@@ -312,6 +312,7 @@ $(document).on('click','#back',function() {
 
 $(document).on('change','#export_check',function(e) {
      if(this.checked) {
+        console.log(e.target.value);
         export_ids.push(e.target.value);
     }
     else{
