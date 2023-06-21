@@ -10,6 +10,7 @@ class AuthGuard implements FilterInterface
     {
         if (!session()->get('isLoggedIn'))
         {
+           // $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
             return redirect()->to('/signin');
         }
     }

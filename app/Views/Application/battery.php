@@ -49,7 +49,7 @@
                                                 <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card refresh_data_b"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                             </div>
                                             <div class="card-block table-border-style">
-                                                <div  class="table-responsive">
+                                                <div  class="table-responsive  table-container">
                                                     <table id="B_table" class="table table-hover">
                                                             <!-- table from backend -->
                                                     </table>

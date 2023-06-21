@@ -97,7 +97,7 @@ class DashboardController extends Controller
         $links = $pager->makeLinks($page,$limit,$rows);
         $pneumatic_pair_data = new PneumaticPairData();
         $table_data ='<thead>
-                        <tr>
+                        <tr class="stickey_head">
                             <th>#</th>
                             <th>Left RFID</th>
                             <th>Right RFID</th>
@@ -414,7 +414,7 @@ class DashboardController extends Controller
         $pneumatic_pair_data = new PneumaticPairData();
         $data =  $pneumatic_pair_data->where('pair_id', $this->request->getPost('id'))->orderBy('date_time','desc')->get()->getResult();
         $table_data ='<input type="hidden" id="pair" value="'.$this->request->getPost('id').'" /><thead>
-                        <tr>
+                        <tr class="stickey_head">
                             <th>#</th>
                             <th>Sensor</th>
                             <th>HP1</th>

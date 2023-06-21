@@ -41,7 +41,7 @@ class BatteryDataController extends Controller
         $links = $pager->makeLinks($page,$limit,$rows);
         
         $table_data ='<thead>
-                        <tr>
+                        <tr class="stickey_head">
                             <th>#</th>
                             <th> Last Voltage </th>
                             <th> Test Status </th>
