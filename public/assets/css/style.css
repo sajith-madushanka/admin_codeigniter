@@ -160,12 +160,22 @@ p {
     background: #93BE52;
     color: #fff;
     padding: 10px;
-    width: 250px;
+    width: 300px;
     height: 50px;
     border: none;
     font-size: 16px;
     -webkit-appearance: button;
     outline: none;
+}
+.optionbox input {
+  
+  width: 300px;
+  height: 40px;
+  border-color: #93BE52;
+  font-size: 16px;
+  -webkit-appearance: button;
+  padding-left:5px;
+  margin-top: 10px;
 }
 
 input[type="checkbox"] {
@@ -195,7 +205,7 @@ input[type="checkbox"]::before {
   width: 0.65em;
   height: 0.65em;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-  transform: scale(0);
+  transform: 10scale(0);
   transform-origin: bottom left;
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--form-control-color);

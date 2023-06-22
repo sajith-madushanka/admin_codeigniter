@@ -1632,9 +1632,13 @@ class DashboardController extends Controller
         if($session->get('is_super')==1){
             $id = $this->request->getPost('id');
             $remark = $this->request->getPost('value');
-
+            $comment = $this->request->getPost('input');
+            $data = $remark;
+            if($comment){
+                $data = $remark." ( ".$comment." ) ";
+            }
             $pneumatic_pair_data = new PneumaticPairData();
-            $pneumatic_pair_data->update($id,['remarks'		=>  $remark]);
+            $pneumatic_pair_data->update($id,['remarks'		=>  $data]);
             return $this->response->setJSON([
                 'remarked' => 1
             ]);

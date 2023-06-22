@@ -112,10 +112,16 @@
                                 </div>
                                 <div class="optionbox">
                                     <select id="remark_select"> 
-                                        <option value="No Presure Active">No Presure Active</option>
-                                        <option value="Valve Damage">Valve Damage</option>
-                                        <option value="Electric Fail">Electric Fail</option>
+                                        <option value="Air Leakage - Top">Air Leakage - Top</option>
+                                        <option value="Air leakage - Middle">Air leakage - Middle</option>
+                                        <option value="Air Leakage - Bottom ">Air Leakage - Bottom</option>
+                                        <option value="Exceeding the required pressures">Exceeding the required pressures</option>
+                                        <option value="Installation error">Installation error</option>
+                                        <option value="Sensor Issue">Sensor Issue</option>
+                                        <option value="Device Malfunction (DM)">Device Malfunction (DM)</option>
+                                        <option value="Pressure Checker Malfuntion (PCM)">Pressure Checker Malfuntion (PCM)</option>
                                     </select>
+                                    <input id="remark_input"></input>
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -519,12 +525,14 @@ function remark_popup() {
    
     var e = document.getElementById("remark_select");
     var value = e.value;
+    var i = document.getElementById("remark_input").value;
    $.ajax({
        url: '<?php echo base_url(); ?>remark_data',
        type: 'POST',
        data: {
            id:remark_id,
-           value:value
+           value:value,
+           input:i
        },
        dataType: 'json',
        
