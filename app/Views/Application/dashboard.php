@@ -90,7 +90,8 @@
                                                             <!-- table from backend -->
                                                     </table>
                                                     <div class="row" style="margin-left: 0px;margin-right:0px;">
-                                                        <div id="pagination" class=" col-sm-10 pagination_tab d-flex justify-content-center">
+                                                        <div  class=" col-sm-2"></div>
+                                                        <div id="pagination" class=" col-sm-8 pagination_tab d-flex justify-content-center">
                                                                 <!-- pagination from backend -->
                                                                 
                                                         </div>
