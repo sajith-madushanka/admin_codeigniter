@@ -125,7 +125,7 @@ p {
     text-decoration: none;
     transition: all 0.4s;
     line-height: normal;
-    min-width: 120px;
+    min-width: 92px;
     border: none;
     min-height: 40px;
     border-radius: 3px;
@@ -164,7 +164,6 @@ p {
     height: 50px;
     border: none;
     font-size: 16px;
-    -webkit-appearance: button;
     outline: none;
 }
 .optionbox input {
@@ -173,7 +172,6 @@ p {
   height: 40px;
   border-color: #93BE52;
   font-size: 16px;
-  -webkit-appearance: button;
   padding-left:5px;
   margin-top: 10px;
 }
@@ -205,7 +203,7 @@ input[type="checkbox"]::before {
   width: 0.65em;
   height: 0.65em;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-  transform: 10scale(0);
+  transform: scale(0);
   transform-origin: bottom left;
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--form-control-color);

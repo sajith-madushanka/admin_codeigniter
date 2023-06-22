@@ -125,7 +125,8 @@
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <button type="button" style="background:#93BE52;" class="btn btn-danger"  onclick="remark_popup()">ADD</button>
+                                    <button type="button"  class="btn btn-danger"  onclick="remark_popup('delete')">Remove</button>
+                                    <button type="button" style="background:#93BE52;" class="btn btn-danger"  onclick="remark_popup('add')">ADD</button>
                                 </div>
                             </div>
                         </div>
@@ -521,8 +522,9 @@ function remark(id) {
     document.getElementById('remark').click();
 }
 
-function remark_popup() {
+function remark_popup(mode) {
    
+
     var e = document.getElementById("remark_select");
     var value = e.value;
     var i = document.getElementById("remark_input").value;
@@ -532,7 +534,8 @@ function remark_popup() {
        data: {
            id:remark_id,
            value:value,
-           input:i
+           input:i,
+           mode:mode
        },
        dataType: 'json',
        
