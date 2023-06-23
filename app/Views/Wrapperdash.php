@@ -280,7 +280,8 @@ $(document).on('click','.download_csv',function() {
                     page: page,
                     keyword:$('#search').val(),
                     start:start_date,
-                    end:end_date
+                    end:end_date,
+                    per_page:per_page
                 },
                 dataType: 'json',
                 

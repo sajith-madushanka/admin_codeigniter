@@ -191,21 +191,23 @@ class DashboardController extends Controller
         
         try{
         $filter = $this->request->getPost('keyword') ?? '';
-        $page = $this->request->getPost('page') ?? 1;
         $start = $this->request->getPost('start') ?? '';
         $end = $this->request->getPost('end') ?? '';
-        
+        $page = $this->request->getPost('page') ?? 1;
+        $limit = $this->request->getPost('per_page') ?? 15; // Items per page
+        $offset = ($page - 1) * $limit;
+
         $pneumatic_pair = new PneumaticPair();
         if($start && $end){
             $pneumatic_pair->where('updated_at BETWEEN "'.$start.'" and "'.$end.'"')->orwhere('final_test BETWEEN "'.$start.'" and "'.$end.'"');
-            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
+            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
         }
         else if (!empty($filter)) {
             $pneumatic_pair->like('dev_id',$filter)->orLike('left_rfid',$filter)->orLike('right_rfid',$filter);
-            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
+            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
         }
         else{
-            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get()->getResult();
+            $data =  $pneumatic_pair->orderBy('updated_at','desc')->get($limit,$offset)->getResult();
         }
         if($data){
             $csvData = "ID,Left RFID,Right RFID,Pneumatic Test,Test Date,Final Inspection,Inspected Date,Overall Inspection,Tested device\n";
