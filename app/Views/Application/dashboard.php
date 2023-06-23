@@ -78,8 +78,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <input id="date" class="form-control" type="text" name="daterange"/>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <select  id="per_page" onchange="per_page_change()" class="form-control">
+                                                            <option value="" hidden >No. of Rows</option>
+                                                            <option value="15">15 per page</option>
+                                                            <option value="25">25 per page</option>
+                                                            <option value="50">50 per page</option>
+                                                            <option value="100">100 per page</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i><i class="icofont icofont-rounded-down download_csv"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card refresh_data"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>

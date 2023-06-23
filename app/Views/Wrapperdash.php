@@ -182,6 +182,7 @@ var start_date = '';
 var end_date = '';
 var page = 1;
 var b_page = 1;
+var per_page = 15;
 var pair_del = "";
 var data_del = "";
 var export_ids = [];
@@ -378,7 +379,8 @@ function load_data(page,keyword,start,end) {
             page: page,
             keyword: keyword,
             start:start,
-            end:end
+            end:end,
+            per_page:per_page
         },
         dataType: 'json',
         
@@ -389,6 +391,7 @@ function load_data(page,keyword,start,end) {
             $('#back').hide();
             $('#head').show();
             $('#search').show();
+            $('#per_page').show();
             $('#date_data').show();
             $('#date').show();
             $('.download_csv').show();
@@ -435,6 +438,7 @@ function pair_Data(id) {
             success: function(response) {
                 // Update table data
                 $('#search').hide();
+                $('#per_page').hide();
                 $('.download_csv').hide();
                 $('#date').hide();
                 $('#date_data').hide();
@@ -549,6 +553,11 @@ function remark_popup(mode) {
    });
 }
 
+function per_page_change(){
+    var e = document.getElementById("per_page");
+    per_page = e.value;
+    load_data(1,$('#search').val(),start_date,end_date);
+}
 function pin_data(id,status) {
     $.ajax({
         url: '<?php echo base_url(); ?>pin_data',
