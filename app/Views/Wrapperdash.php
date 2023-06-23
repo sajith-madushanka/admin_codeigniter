@@ -108,7 +108,7 @@
                                         <i style="color: #93BE52;" class="ti-pencil-alt"></i>
                                     </div>
                                     <h4 class="modal-title w-100">Please select the remark.</h4>
-                                    <button type="button" id="close_del" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <button type="button" id="close_del_1" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="optionbox">
                                     <select id="remark_select"> 
@@ -121,7 +121,7 @@
                                         <option value="Device Malfunction (DM)">Device Malfunction (DM)</option>
                                         <option value="Pressure Checker Malfuntion (PCM)">Pressure Checker Malfuntion (PCM)</option>
                                     </select>
-                                    <input id="remark_input"></input>
+                                    <input id="remark_input" placeholder="add a comment"></input>
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -141,7 +141,7 @@
                                         <i class="ti-trash"></i>
                                     </div>
                                     <h4 class="modal-title w-100">Are you sure?</h4>
-                                    <button type="button" id="close_del" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <button type="button" id="close_del_2" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="modal-body">
                                     <p>Do you really want to delete these records? This process cannot be undone.</p>
@@ -505,7 +505,7 @@ function delete_data_popup() {
         dataType: 'json',
         
         success: function(response) {
-            document.getElementById('close_del').click();
+            document.getElementById('close_del_2').click();
             if(response.deleted == 1){
                 pair_Data(pair_del);
             }
@@ -540,7 +540,7 @@ function remark_popup(mode) {
        dataType: 'json',
        
        success: function(response) {
-           document.getElementById('close_del').click();
+           document.getElementById('close_del_1').click();
            if(response.remarked == 1){
                 pair_Data($('#pair').val());
            }

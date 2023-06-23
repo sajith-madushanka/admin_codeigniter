@@ -37,7 +37,7 @@ class DashboardController extends Controller
         $page = $this->request->getPost('page') ?? 1;
         $start = $this->request->getPost('start') ?? '';
         $end = $this->request->getPost('end') ?? '';
-        $limit = 12; // Items per page
+        $limit = 20; // Items per page
         $offset = ($page - 1) * $limit;
         $summary_count ='';
         
