@@ -71,7 +71,7 @@
                                             <div  id="back"><i  class="ti-arrow-left" style="padding-right: 1%;"></i><h5>Pneumatic data</h5></div>
                                                 <h5 id="head">Pneumatic Tester dashboard</h5>
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-5">
                                                         <div class="pcoded-search">
                                                             <div class="pcoded-search-box ">
                                                                 <input id="search" type="text" placeholder="Search by ID or RFID">
@@ -90,8 +90,11 @@
                                                             <option value="100">100 per page</option>
                                                         </select>
                                                     </div>
+                                                    <div class="col-sm-1">
+                                                        <button id="download_dashboard"  class="btn btn-success btn-sm download_csv">Download</button>  
+                                                    </div>
                                                 </div>
-                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i><i class="icofont icofont-rounded-down download_csv"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card refresh_data"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                                <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li> <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card refresh_data"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                             </div>
                                             <div class="card-block table-border-style">
                                                 <div  class="table-responsive table-container">
@@ -105,7 +108,7 @@
                                                                 
                                                         </div>
                                                         <div id="row_data_button" style="text-align: right;" class=" col-sm-2 justify-content-right">
-                                                            <button id="row_data_down"  class="btn btn-info btn-sm btn-round">Export Row Datas</button>  
+                                                            <button id="row_data_down"  class="btn btn-success btn-sm">Export Row.Data</button>  
                                                         </div>
                                                     </div>
                                                     

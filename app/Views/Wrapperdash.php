@@ -214,6 +214,7 @@ var nav = $('.fixed-button');
         load_data(1);
     }
 });
+
 $(document).on('click','.pagination a',function(e) {
     // Load pagination
     if(window.location.pathname == "/battery"){
