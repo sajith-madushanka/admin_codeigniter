@@ -185,6 +185,7 @@ var b_page = 1;
 var per_page = 15;
 var pair_del = "";
 var data_del = "";
+var battery_del = "";
 var export_ids = [];
 var nav = $('.fixed-button');
     $window.scroll(function(){
@@ -327,12 +328,12 @@ $(document).on('change','#export_check',function(e) {
     else{
         export_ids = export_ids.filter(arrayItem => arrayItem !== e.target.value);
     }
-
     if(export_ids.length >= 1){
         $('#row_data_down').show();
     }
     else{
-        $('#row_data_down').hide();
+        $('#search_wrap').removeClass('col-sm-3');
+         $('#row_data_down').hide();
     }
 });
 
@@ -499,28 +500,53 @@ function delete_data(id,data_id) {
     document.getElementById('del').click();
 }
 
+function delete_battery_data(id) {
+    battery_del = id;
+    document.getElementById('del').click();
+}
+
 function delete_data_popup() {
    
-    $.ajax({
-        url: '<?php echo base_url(); ?>delete_data',
-        type: 'POST',
-        data: {
-            id:pair_del,
-            data_id:data_del
-        },
-        dataType: 'json',
-        
-        success: function(response) {
-            document.getElementById('close_del_2').click();
-            if(response.deleted == 1){
-                pair_Data(pair_del);
-            }
-            else if(response.deleted == 2){
-                load_data(page,$('#search').val(),start_date,end_date);
-            }
+    if(window.location.pathname == "/battery"){
+        $.ajax({
+            url: '<?php echo base_url(); ?>delete_B_data',
+            type: 'POST',
+            data: {
+                id:battery_del
+            },
+            dataType: 'json',
             
-        }
-    });
+            success: function(response) {
+                document.getElementById('close_del_2').click();
+                if(response.deleted == 1){
+                    load_battery_data(b_page,$('#B_search').val());
+                }
+            }
+        });
+    }
+    else{
+        $.ajax({
+            url: '<?php echo base_url(); ?>delete_data',
+            type: 'POST',
+            data: {
+                id:pair_del,
+                data_id:data_del
+            },
+            dataType: 'json',
+            
+            success: function(response) {
+                document.getElementById('close_del_2').click();
+                if(response.deleted == 1){
+                    pair_Data(pair_del);
+                }
+                else if(response.deleted == 2){
+                    load_data(page,$('#search').val(),start_date,end_date);
+                }
+                
+            }
+        });
+    }
+   
 }
 
 function remark(id) {

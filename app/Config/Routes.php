@@ -43,6 +43,7 @@ $routes->post('/remark_data', 'App\DashboardController::remarkData',['filter' =>
 $routes->post('/pin_data', 'App\DashboardController::pinData',['filter' => 'authGuard']);
 
 $routes->post('/get_battery_data', 'App\BatteryDataController::getBatteryData',['filter' => 'authGuard']);
+$routes->post('/delete_B_data', 'App\BatteryDataController::deleteData',['filter' => 'authGuard']);
 
 
 $routes->get('/signup', 'Auth\SignupController::index');
