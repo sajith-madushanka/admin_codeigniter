@@ -209,6 +209,7 @@ var nav = $('.fixed-button');
 
  $(document).ready(function() {
     if(window.location.pathname == "/battery"){
+
         load_battery_data(1);
     }
     else{
@@ -425,6 +426,11 @@ function load_battery_data(page,keyword) {
             $('#B_pagination').html(response.links);
         }
     });
+
+    setTimeout(function(){
+            load_battery_data(b_page,$('#B_search').val());
+            },
+    6000);
 }
 
 function pair_Data(id) {
