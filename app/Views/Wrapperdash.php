@@ -430,7 +430,7 @@ function load_battery_data(page,keyword) {
     setTimeout(function(){
             load_battery_data(b_page,$('#B_search').val());
             },
-    6000);
+    3000);
 }
 
 function pair_Data(id) {
